@@ -1,14 +1,9 @@
 ---
+title: 个人简历
 layout: page
-title: " "
-permalink: /resume/
 ---
 
-<h1 style="text-align:center;">个人简历</h1>
-
-<br/>
-
-### 孙福生个人信息  
+### 个人信息  
 ***
 
 姓 名: 孙福生  
@@ -19,7 +14,7 @@ permalink: /resume/
 
 手机号码: [156 9821 9533]()  
 电子邮件: [sfsheng0322@126.com]()  
-GitHub: [https://github.com/sfsheng0322](https://github.com/sfsheng0322)  
+GitHub: [https://github.com/sunfusheng](https://github.com/sunfusheng)  
 个人博客: [sunfusheng.com](http://sunfusheng.com/)  
 网页简历: [sunfusheng.com/resume](http://sunfusheng.com/resume/)
 

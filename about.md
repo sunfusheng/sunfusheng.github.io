@@ -1,10 +1,6 @@
 ---
-layout: page
 title: 关于
-date: 2017-04-18
-author: Jekyll
-cover: 'http://on2171g4d.bkt.clouddn.com/jekyll-banner.png'
-tags: jekyll
+layout: page
 ---
 
 我是孙福生，二零一三年毕业，毕业后一直从事Android客户端开发。  

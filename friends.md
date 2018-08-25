@@ -1,9 +1,7 @@
 ---
+title: 优秀的技术博客
 layout: page
-title: 朋友
 ---
-
-### 推荐
 
 [掘金](http://gold.xitu.io/)
 
@@ -19,11 +17,9 @@ title: 朋友
 
 [Android 笔记](http://www.race604.com/)
 
-[React Native专题](http://www.lcode.org/react-native/)
-
 [codekk](http://p.codekk.com/)
 
-### 伙伴们
+****
 
 [郭霖的专栏](http://blog.csdn.net/guolin_blog?viewmode=contents)
 
