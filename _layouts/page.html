@@ -1,0 +1,19 @@
+---
+layout: default
+---
+
+{% include header.html %}
+
+	<div class="g-banner home-banner {{ site.theme-color | prepend: 'banner-theme-' }}" data-theme="{{ site.theme-color }}">
+	</div>
+
+	<br/>
+	<br/>
+
+    <article class="markdown-body">
+    	{{ content }}
+    </article>
+
+	<br/>
+
+{% include footer.html %}
