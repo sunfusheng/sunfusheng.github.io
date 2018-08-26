@@ -1,0 +1,80 @@
+{
+  "manifest_code": 1,
+  "updates_code": 1,
+  "additions_code": 1,
+  "manifest": {
+    "version": "1.0.0",
+    "bundles": [
+      {
+        "uri": "lib.style",
+        "pkg": "com.sunfusheng.small.lib.style"
+      },
+      {
+        "uri": "lib.framework",
+        "pkg": "com.sunfusheng.small.lib.framework"
+      },
+      {
+        "uri": "main",
+        "pkg": "com.sunfusheng.small.app.main"
+      },
+      {
+        "uri": "phone",
+        "pkg": "com.sunfusheng.small.app.phone",
+        "rules": {
+          "beijing": ".ui.BeijingPhone",
+          "weihai": ".ui.WeihaiPhone"
+        }
+      },
+      {
+        "uri": "weather_beijing",
+        "pkg": "com.sunfusheng.small.app.weather",
+        "rules": {
+          "beijing": ".ui.BeijingWeather"
+        }
+      },
+      {
+        "uri": "weather_shanghai",
+        "type":"app",
+        "pkg": "com.sunfusheng.small.app.shanghai.weather",
+        "rules": {
+          "shanghai": ".ui.ShanghaiWeather"
+        }
+      },
+      {
+        "uri": "about",
+        "pkg": "com.sunfusheng.small.app.about"
+      }
+    ]
+  },
+  "updates": [],
+  "additions": [
+    {
+      "pkg": "com.sunfusheng.small.lib.style",
+      "url": "http://sunfusheng.com/assets/small/additions/libcom_sunfusheng_small_lib_style.so"
+    },
+    {
+      "pkg": "com.sunfusheng.small.lib.framework",
+      "url": "http://sunfusheng.com/assets/small/additions/libcom_sunfusheng_small_lib_framework.so"
+    },
+    {
+      "pkg": "com.sunfusheng.small.app.main",
+      "url": "http://sunfusheng.com/assets/small/additions/libcom_sunfusheng_small_app_main.so"
+    },
+    {
+      "pkg": "com.sunfusheng.small.app.phone",
+      "url": "http://sunfusheng.com/assets/small/additions/libcom_sunfusheng_small_app_phone.so"
+    },
+    {
+      "pkg": "com.sunfusheng.small.app.weather",
+      "url": "http://sunfusheng.com/assets/small/additions/libcom_sunfusheng_small_app_weather.so"
+    },
+    {
+      "pkg": "com.sunfusheng.small.app.shanghai.weather",
+      "url": "http://sunfusheng.com/assets/small/additions/libcom_sunfusheng_small_app_shanghai_weather.so"
+    },
+    {
+      "pkg": "com.sunfusheng.small.app.about",
+      "url": "http://sunfusheng.com/assets/small/additions/libcom_sunfusheng_small_app_about.so"
+    }
+  ]
+}

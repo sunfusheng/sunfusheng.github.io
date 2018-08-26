@@ -23,9 +23,14 @@
         <time class="post-meta-item" datetime="{{ page.date | date:"%y-%m-%d" }}"><i class="iconfont icon-date"></i>{{ page.date | date_to_string }}</time>
       </div>
     </div>
+
     {% if page.cover %}
-    <div class="filter"></div>
+      <div class="filter"></div>
       <div class="post-cover" style="background: url('{{ page.cover }}') center no-repeat; background-size: cover;"></div>
+    {% endif %}
+
+    {% if page.background-color.size > 0 %}
+      <div class="post-cover" style="background-color: {{page.background-color}}; background-size: cover;"></div>
     {% endif %}
   </header>
 
