@@ -2,8 +2,8 @@
 layout: post
 author: 孙福生
 title: WebView常用接口整理
-categories: Android
-tags: Technology
+background-color: '#673ab7'
+tags: WebView
 ---
 
 WebView可以使得网页轻松的内嵌到app里，还可以直接跟js相互调用。<br/>
@@ -12,7 +12,7 @@ setWebClient：主要处理解析，渲染网页等浏览器做的事情。<br/>
 setWebChromeClient：辅助WebView处理Javascript的对话框，网站图标，网站title，加载进度等。<br/>
 WebViewClient就是帮助WebView处理各种通知、请求事件的。<br/>
 
-###加载资源
+### 加载资源
 
 加载本地资源
 
@@ -36,7 +36,7 @@ WebViewClient就是帮助WebView处理各种通知、请求事件的。<br/>
         }
     });
 
-###WebSettings的常用方法介绍
+### WebSettings的常用方法介绍
 
     setJavaScriptEnabled(true);  //支持js
     setPluginsEnabled(true);  //支持插件 
@@ -58,7 +58,7 @@ WebViewClient就是帮助WebView处理各种通知、请求事件的。<br/>
         webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null); //启动硬件加速
     }
 
-###WebViewClient的方法介绍
+### WebViewClient的方法介绍
 
     onLoadResource(WebView view, String url) // 在加载页面资源时会调用，每一个资源（比如图片）的加载都会调用一次。 
 
@@ -75,7 +75,7 @@ WebViewClient就是帮助WebView处理各种通知、请求事件的。<br/>
     shouldOverrideUrlLoading(WebView view, String url) 
     //在点击请求的是链接是才会调用，重写此方法返回true表明点击网页里面的链接还是在当前的webview里跳转，不跳到浏览器那边。这个函数我们可以做很多操作，比如我们读取到某些特殊的URL，于是就可以不打开地址，取消这个操作，进行预先定义的其他操作，这对一个程序是非常必要的。
 
-###按返回键时，不退出程序而是返回上一浏览页面
+### 按返回键时，不退出程序而是返回上一浏览页面
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -86,7 +86,7 @@ WebViewClient就是帮助WebView处理各种通知、请求事件的。<br/>
         return super.onKeyDown(keyCode, event);
     }
 
-###缓存的使用
+### 缓存的使用
 
 优先使用缓存:
 

@@ -2,8 +2,8 @@
 layout: post
 author: 孙福生
 title: 自定义Android时间选择器
-categories: Android
-tags: Technology
+background-color: '#673ab7'
+tags: ShareView WheelView
 ---
 
 在Android项目开发中我们经常会遇到设置时间的操作，根据要求设置我们需要的年、月、日、时、分、秒等信息，
@@ -11,8 +11,8 @@ tags: Technology
 
 <table>
     <tr>
-        <td><img src="/assets/android_wheelview_icon.png" style="width: 80%;"></td>
-        <td><img src="/assets/android_shareview_icon.png" style="width: 80%;"></td>
+        <td><img src="/assets/2015/android_wheelview_icon.png" style="width: 80%;"></td>
+        <td><img src="/assets/2015/android_shareview_icon.png" style="width: 80%;"></td>
     </tr>
 </table>
 
@@ -25,15 +25,18 @@ touch到它的透明遮挡或click取消按钮都会使
 
 #### 将View添加到Activity的界面里
 
+```Java
 	public void attachView(Activity activity) {
 	    ((ViewGroup) activity.getWindow().getDecorView()).addView(fullMaskView);
 	    FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
 	    params.gravity = Gravity.BOTTOM;
 	    ((ViewGroup) activity.getWindow().getDecorView()).addView(contentLayout, params);
 	}
+```
 
 #### 动态显示与隐藏该View
 
+```Java
 	public void show() {
 	    fullMaskView.setVisibility(View.VISIBLE);
 	    contentLayout.setVisibility(View.VISIBLE);
@@ -44,11 +47,13 @@ touch到它的透明遮挡或click取消按钮都会使
 	    fullMaskView.setVisibility(View.GONE);
 	    YoYo.with(Techniques.SlideOutDown).duration(200).withListener(new SlideOutDownAnimatorListener(contentLayout)).playOn(contentLayout);
 	}
+```
 
 #### 初始化WhellView
 
 为这个时间选择器设置数据，不可循环滚动，设置显示5个item和显示item的高度和字体的大小，并为这个View设置监听器。
 
+```Java
 	private void initWhellView(WheelView wheelView, WheelAdapter adapter, OnWheelChangedListener listener, int currentIndex) {
 	    wheelView.setAdapter(adapter);
 	    wheelView.setCyclic(false);
@@ -58,6 +63,7 @@ touch到它的透明遮挡或click取消按钮都会使
 	    wheelView.ADDITIONAL_ITEM_HEIGHT = 24;
 	    wheelView.addChangingListener(listener);
 	}
+```
 
 
 

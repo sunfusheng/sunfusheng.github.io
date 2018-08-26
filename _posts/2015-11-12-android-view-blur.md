@@ -2,8 +2,8 @@
 layout: post
 author: 孙福生
 title: Android截屏并对图片做高斯模糊处理
-categories: Android
-tags: Technology
+background-color: '#ff6f00'
+tags: 高斯模糊
 ---
 
 本文使用仅仅是使用[Blurring Github库](https://github.com/paveldudka/blurring)实现高斯模糊效果，在这里自己做下笔记。<br/>
@@ -16,13 +16,14 @@ tags: Technology
 
 <table>
     <tr>
-        <td><img src="/assets/before_blur.png" style="width: 80%;"></td>
-        <td><img src="/assets/after_blur.png" style="width: 80%;"></td>
+        <td><img src="/assets/2015/before_blur.png" style="width: 80%;"></td>
+        <td><img src="/assets/2015/after_blur.png" style="width: 80%;"></td>
     </tr>
 </table>
 
 ###截屏当前显示页并处理状态栏和标题栏是否显示
 
+```Java
     private boolean isBlur; //防止重复高斯处理
     private View blurView; //Activity的根view即DecorView
 
@@ -59,9 +60,11 @@ tags: Technology
         int titleBarHeight = contentTop - statusBarHeight;
         return statusBarHeight + titleBarHeight + llLocation.getHeight() + llTag.getHeight();
     }
+```
 
 ###对截屏后的图片做高斯模糊处理
 
+```Java
     private void blur(Bitmap bkg, View view) {
         float scaleFactor = 20; //迷糊度设置
         float radius = 20;
@@ -78,9 +81,11 @@ tags: Technology
         overlay = BlurUtil.doBlur(overlay, (int) radius, true);
         view.setBackground(new BitmapDrawable(getResources(), overlay));
     }
+```
 
 BlurUtil.java文件下的java高斯算法
 
+```Java
     public static Bitmap doBlur(Bitmap sentBitmap, int radius, boolean canReuseInBitmap) {
         Bitmap bitmap;
         if (canReuseInBitmap) {
@@ -285,14 +290,17 @@ BlurUtil.java文件下的java高斯算法
         bitmap.setPixels(pix, 0, w, 0, 0, w, h);
         return (bitmap);
     }
+```
 
 ###根据情况释放cache资源
 
 blurView为Activity的根view即DecorView
 
+```Java
     if (blurView != null) {
         blurView.setDrawingCacheEnabled(false);
     }
+```
 
 
 

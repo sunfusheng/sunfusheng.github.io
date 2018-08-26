@@ -2,8 +2,8 @@
 layout: post
 author: 孙福生
 title: 通过 Retrolambda 体验 Java 8 Lambda 表达式
-categories: Android
-tags: Technology
+background-color: '#259b24'
+tags: Android Retrolambda
 ---
    
 Lambda 表达式是在Java 8中开始支持的一种函数式推导语言，能够大量减少匿名内部类那种冗余的代码。在Android中，可以大量使用在设置监听、设置异步回调等场景。
@@ -12,6 +12,7 @@ Lambda 表达式是在Java 8中开始支持的一种函数式推导语言，能�
 
 1、将 [Retrolambda](https://github.com/evant/gradle-retrolambda) 运用于Android中：
 
+```Java
 	在Project的build.gradle中添加
 	buildscript {
 	  repositories {
@@ -31,9 +32,11 @@ Lambda 表达式是在Java 8中开始支持的一种函数式推导语言，能�
 	    targetCompatibility JavaVersion.VERSION_1_8
 	  }
 	}
+```
 
 2、体验之前，先看一下Lambda的语法：
 
+```Java
 	parameter -> expression
 	(parameters) -> expression
 	(parameters) -> statement
@@ -47,9 +50,11 @@ Lambda 表达式是在Java 8中开始支持的一种函数式推导语言，能�
 		...
 		return statmentN;
 	}
+```
 
 3、看完语法后，下面看看它逼格到底有多高：
 
+```Java
 	匿名内部类的简化
 
 	button.setOnClickListener((v) -> doSomething(v));
@@ -71,6 +76,7 @@ Lambda 表达式是在Java 8中开始支持的一种函数式推导语言，能�
 	private void doSomething() {
 		...
 	}
+```
 
 当然，使用Lambda可以支持许多操作，如 map, filter, limit, sorted, count, min, max, sum, collect 等等，暂时体验一下。翠华，先不上菜啦，后续更新。
 

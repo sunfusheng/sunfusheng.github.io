@@ -2,19 +2,19 @@
 layout: post
 author: 孙福生
 title: 依托于Github的个人博客自定义域名设置
-categories: 工具
-tags: Technology
+background-color: '#607d8b'
+tags: Jekyll博客搭建
 ---
    
-每一天都是特别的，但四月一号的今天尤其Special，不仅仅是因为愚人节，因为从今天起原来的个人博客域名[sfsheng0322.github.io](http://sfsheng0322.github.io/)又多了个兄弟新的简洁域名[sunfusheng.com](http://sunfusheng.com/)，当然两个域名都可用，前者在通过Jekyll搭建博客后默认的域名，新域名则是从阿里云那买的；但是我所有的博客文章都在GitHub上啊，难道还要重新部署到阿里云上嘛，当然不用啦，下面我记录了依托于Github的个人博客自定义域名设置。
+每一天都是特别的，但四月一号的今天尤其Special，不仅仅是因为愚人节，因为从今天起原来的个人博客域名[sunfusheng.github.io](http://sunfusheng.github.io/)又多了个兄弟新的简洁域名[sunfusheng.com](http://sunfusheng.com/)，当然两个域名都可用，前者在通过Jekyll搭建博客后默认的域名，新域名则是从阿里云那买的；但是我所有的博客文章都在GitHub上啊，难道还要重新部署到阿里云上嘛，当然不用啦，下面我记录了依托于Github的个人博客自定义域名设置。
 
 先看看顶级国际域名证书，逼格还是蛮高的嘛！
 
-<img src="/assets/sunfusheng.com_cert.jpg" style="width: 50%;">
+<img src="/assets/2016/sunfusheng.com_cert.jpg" style="width: 50%;">
 
 买完域名后，怎么搞，第一次搞，我也不知道怎么搞，但目的很简单就是域名绑定，域名解析到我原来的地址上
 
-<img src="/assets/cname_icon1.png" style="width: 80%;">
+<img src="/assets/2016/cname_icon1.png" style="width: 80%;">
 
 百度一下，你就知道；拉到吧，百度真不好找，Google一下吧，哦哦，来了，上步骤：
 
@@ -29,7 +29,7 @@ tags: Technology
 #### 最后  
 将设置买的域名，我的域名设置如下：
 
-<img src="/assets/cname_icon2.png" style="width: 80%;">
+<img src="/assets/2016/cname_icon2.png" style="width: 80%;">
 
 
 这当中有几个新概念，可能你不知道，我帮咱俩查了下：

@@ -2,8 +2,8 @@
 layout: post
 author: 孙福生
 title: 拍照和从相册选择图片
-categories: Android
-tags: Technology
+background-color: '#673ab7'
+tags: Choose-Picture
 ---
 
 好久没有写博客了，感到深深的自责。这是一个以分享为乐的时代，显然这段时间我对不起这个时代了，呵呵。
@@ -14,8 +14,8 @@ tags: Technology
 
 <table>
     <tr>
-        <td><img src="/assets/android_take_choose_picture.png" style="width: 80%;"></td>
-        <td><img src="/assets/android_take_choose_picture1.png" style="width: 80%;"></td>
+        <td><img src="/assets/2015/android_take_choose_picture.png" style="width: 80%;"></td>
+        <td><img src="/assets/2015/android_take_choose_picture1.png" style="width: 80%;"></td>
     </tr>
 </table>
 
@@ -24,6 +24,7 @@ tags: Technology
 
 ###首先调系统的拍照和从相册选择图片的界面
 
+```Java
     public static final int TAKE_PICTURE_REQUEST_CODE = 7;
     public static final int CHOOSE_PICTURE_REQUEST_CODE = 23;
 
@@ -41,9 +42,11 @@ tags: Technology
         intent.setType("image/*");
         activity.startActivityForResult(intent, CHOOSE_PICTURE_REQUEST_CODE);
     }
+```
 
 ###在相应的界面下处理返回的数据，onActivityResult()方法中处理
 
+```Java
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -68,10 +71,12 @@ tags: Technology
             }
         }
     }
+```
 
 ###这就完了吗？显然还没有，图片显示也考验着软件的性能，原来我自己处理返回的图片并转换为Bitmap再缩放，可偶尔还是会出现OutOfMemoryError，这样还是有风险的。
 想想为甚要重新造轮子，用现在开源的ImageLoader可以安全轻松搞定。
 
+```Java
     private void setImageViewWithPath(ImageView imageView, String imagePath) {
         DisplayImageOptions imageOptions = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisc(true)
             .showImageOnLoading(R.drawable.ic_user)
@@ -81,6 +86,7 @@ tags: Technology
 
         ImageLoader.getInstance().displayImage("file://" + imagePath, imageView, imageOptions);
     }
+```
 
 
 

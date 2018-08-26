@@ -2,8 +2,8 @@
 layout: post
 author: 孙福生
 title: 反射、注解与依赖注入总结
-categories: Java
-tags: Technology
+background-color: '#ff6f00'
+tags: Java Reflection Annotation
 ---
 
 上一篇[【线程、多线程与线程池总结】](http://www.jianshu.com/p/b8197dd2934c)中主要记录线程、多线程相关概念，侧重于线程的Future使用与线程池的操作；同样这一篇【反射、注解与依赖注入总结】依然着重于相关概念与使用。<br/>  
@@ -38,31 +38,38 @@ tags: Technology
 
 #### 反射相关的类、方法
 
-要看透一个类，首先要获取这个类的对象，其它信息都是通过这个对象获取的，下面的所有的示例具体操作代码请参考 [【个人学习项目DroidStudy】](https://github.com/sfsheng0322/In-depthStudy)，我在这个工程下新建一个 ReflectionActivity，包的路径为 com.sun.study.ui.activity.ReflectionActivity，通过反射相关的类、方法让我看透这个类。
+要看透一个类，首先要获取这个类的对象，其它信息都是通过这个对象获取的，下面的所有的示例具体操作代码请参考 [【个人学习项目DroidStudy】](https://github.com/sunfusheng/In-depthStudy)，我在这个工程下新建一个 ReflectionActivity，包的路径为 com.sun.study.ui.activity.ReflectionActivity，通过反射相关的类、方法让我看透这个类。
 
 1、获取对象的三种方式：
 
 第一种、知道一个类，直接获取 Class 对象
 
+```java
 	Class<?> cls1 = ReflectionActivity.class;
+```
 
 第二种、如果已经得到了某个对象，可以通过这个对象获取 Class 对象
 
+```java
 	ReflectionActivity activity = new ReflectionActivity();
 	Class<?> cls2 = activity.getClass();
+```
 
 第三种、如果你在编译期获取不到目标类型，但是你知道它的完整类路径，那么你可以通过如下的形式来获取 Class 对象，这样获取可能会抛出异常 ClassNotFoundException。
 
+```java
 	try {
 		Class<?> cls3 = Class.forName("com.sun.study.ui.activity.ReflectionActivity");
 	} catch (ClassNotFoundException e) {
 		e.printStackTrace();
 	}
+```
 
 2、反射的相关方法和示例
 
 列出反射的相关方法
 
+```java
 	getName()：获得类的完整名字。  
 	newInstance()：通过类的不带参数的构造方法创建这个类的一个对象。
 
@@ -82,9 +89,11 @@ tags: Technology
 	
 	getSuperclass()：获取某类的父类  
 	getInterfaces()：获取某类实现的接口
+```
 	
 示例一：获得类的所有方法（Method）信息
 	
+```java
 	private void getMethodsInfo() {
         Class<ReflectionActivity> cls = ReflectionActivity.class;
         Method[] methods = cls.getDeclaredMethods();
@@ -108,13 +117,15 @@ tags: Technology
 
         tvInfo.setText(sb.toString());
     }
+```
     
 运行结果如下图：
 
-<img src="/assets/reflection_icon1.png" style="width: 50%;">
+<img src="/assets/2016/reflection_icon1.png" style="width: 50%;">
 
 示例一：获得类的所有属性（Field）信息，并修改类型Int属性i的值
     
+```java
     private void modifyFieldValue() {
         Class<ReflectionActivity> cls = ReflectionActivity.class;
         Field[] fields = cls.getDeclaredFields();
@@ -143,10 +154,11 @@ tags: Technology
         tvInfo.setText(sb.toString());
         toolbar.setSubtitle("修改类型Int属性i的值");
     }
+```
     
 运行结果如下图：
 
-<img src="/assets/reflection_icon2.png" style="width: 50%;">
+<img src="/assets/2016/reflection_icon2.png" style="width: 50%;">
 
 更多示例请参考 [【个人学习项目DroidStudy】](https://github.com/sfsheng0322/In-depthStudy)
 
@@ -163,6 +175,7 @@ tags: Technology
 
 1、标记作用，用于告诉编译器一些信息让编译器能够实现基本的编译检查，如@Override、Deprecated，看下它俩的源码
 	
+```java
 	@Target(ElementType.METHOD)
 	@Retention(RetentionPolicy.SOURCE)
 	public @interface Override {
@@ -172,6 +185,7 @@ tags: Technology
 	@Retention(RetentionPolicy.RUNTIME)
 	public @interface Deprecated {
 	}
+```
 
 2、编译时动态处理，动态生成代码，如[Butter Knife](https://github.com/JakeWharton/butterknife)、[Dagger 2](https://github.com/google/dagger)
 
@@ -187,10 +201,12 @@ tags: Technology
 
 2、元注解（meta-annotation），是指负责注解其他注解的注解，JDK 1.5及以后版本定义了4个标准的元注解类型，如下：
 
+```java
 	1、@Target
 	2、@Retention
 	3、@Documented
 	4、@Inherited
+```
 
 3、自定义注解，根据需要可以自定义注解，自定义注解需要用到上面的meta-annotation
 	
@@ -207,6 +223,7 @@ tags: Technology
 
 @Target：指Annotation所修饰的对象范围，通过ElementType取值有8种，如下
 
+```java
     TYPE：类、接口（包括注解类型）或枚举
     FIELD：属性
     METHOD：方法
@@ -215,12 +232,15 @@ tags: Technology
     LOCAL_VARIABLE：局部变量
     ANNOTATION_TYPE：注解类型
     PACKAGE：包
+```
 
 @Retention：指Annotation被保留的时间长短，通过RetentionPolicy取值有3种，如下：
 
+```java
 	SOURCE：在源文件中有效（即源文件保留）  
 	CLASS：在class文件中有效（即class保留）  
 	RUNTIME：在运行时有效（即运行时保留）
+```
 
 @Documented：是一个标记注解，用于描述其它类型的注解应该被作为被标注的程序成员的公共API，因此可以被例如javadoc此类的工具文档化。
 
@@ -228,7 +248,9 @@ tags: Technology
 
 2、注解定义格式
 
+```java
 	public @interface 注解名 { 定义体 }
+```
 
 3、注解参数可支持的数据类型：
 
@@ -238,21 +260,24 @@ tags: Technology
 	
 4、⚠注意：自定义注解如果只有一个参数成员，最好把定义体参数名称设为"value"，如@Target
 
+```java
 	@Documented
 	@Retention(RetentionPolicy.RUNTIME)
 	@Target(ElementType.ANNOTATION_TYPE)
 	public @interface Target {
     	ElementType[] value();
 	}
+```
 
 #### 看一个示例
 
 具体要求和运行结果都在下面这张图上显示出来了，贴下图
 
-<img src="/assets/annotation_icon.png" style="width: 50%;">
+<img src="/assets/2016/annotation_icon.png" style="width: 50%;">
 
 再贴三块代码，首先是自定义注解代码：
 
+```java
 	@Target(ElementType.METHOD)
 	@Retention(RetentionPolicy.RUNTIME)
 	@Inherited
@@ -261,9 +286,11 @@ tags: Technology
     	boolean withDialog() default true;
     	String withMessage() default "正在加载，请稍后...";
 	}
+```
 
 其次是执行模拟的网络请求，核心代码是通过上面的反射和注解完成的；具体详细代码请参考 [【个人学习项目DroidStudy】](https://github.com/sfsheng0322/In-depthStudy)，下次使用动态代理和Google的dexmaker完成这个功能，敬请关注，如果你对线程池还不清晰请参考我以前的文章[【线程、多线程与线程池总结】](http://www.jianshu.com/p/b8197dd2934c)。贴下核心代码：
 
+```java
 	// 线程池
 	private static ExecutorService pool = Executors.newCachedThreadPool();
 
@@ -297,9 +324,11 @@ tags: Technology
         });
         return true;
     }
+```
     
 最后是调用网络请求接口：
 
+```java
 	@RequestAnnotation(withDialog = false, withMessage = "正在加载，请稍后...")
     public void apiTestFunc(String param1, String param2) {
         try {
@@ -313,6 +342,7 @@ tags: Technology
     // 点击执行的代码
     DynamicProxyUtil proxyUtil = new DynamicProxyUtil(AnnotationActivity.this);
 	proxyUtil.process(RequestNetworkApi.class, "apiTestFunc", "参数一", "参数二");
+```
 
 ## ● 依赖注入（Dependency Injection）
 
@@ -320,6 +350,7 @@ tags: Technology
 
 看完上面反射和注解的记录后，可以更好的理解依赖注入，如果你不用那些第三方的注入库你也在经常用到依赖注入，比如下面这一段从[codekk](http://p.codekk.com/)上截取的代码：
 
+```java
 	public class Human {
     	...
     	Father father;
@@ -328,6 +359,7 @@ tags: Technology
         	this.father = father;
     	}
 	}
+```
 	
 上面代码中，我们将 father 对象作为构造函数的一个参数传入。在调用 Human 的构造方法之前外部就已经初始化好了 Father 对象。像这种非自己主动初始化依赖，而通过外部来传入依赖的方式，我们就称为依赖注入。
 

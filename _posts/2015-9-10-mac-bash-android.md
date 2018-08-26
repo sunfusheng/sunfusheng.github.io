@@ -2,8 +2,8 @@
 layout: post
 author: 孙福生
 title: Android手机录视频转Gif格式
-categories: 工具
-tags: Util Mac
+background-color: '#673ab7'
+tags: 手机视频转Gif
 ---
 
 这篇文章主要为开发人员解决Android手机录视频转Gif格式困难痛点，下面是我在Mac下的操作步骤：  
@@ -14,9 +14,9 @@ tags: Util Mac
 
 ### 先看下我录制的个人作品Gif效果图
 
-<img src="/assets/gifs/图灵机器人.gif" style="width: 50%;">
+<img src="/assets/2015/图灵机器人.gif" style="width: 50%;">
 
-源码参考个人作品 [【图灵机器人】](https://github.com/sfsheng0322/Tuling)
+源码参考个人作品 [【图灵机器人】](https://github.com/sunfusheng/Tuling)
 
 Demo[下载地址](http://fir.im/turing)
 

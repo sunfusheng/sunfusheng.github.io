@@ -2,14 +2,14 @@
 layout: post
 author: 孙福生
 title: Android沉浸式通知栏
-categories: Android
-tags: Technology
+background-color: '#673ab7'
+tags: StatusBar
 ---
 
 当Android 4.4 KitKat发布的时候，每个人都很兴奋看到新的半透明状态栏和导航栏，这确实提高了安卓系统的美感，
 我也是被很多这样的应用吸引，试着实现这样沉浸式的效果，看下效果图更直观。
 
-<img src="/assets/android_systembartint_icon.png" style="width: 50%;">
+<img src="/assets/2015/android_systembartint_icon.png" style="width: 50%;">
 
 完成这样的效果很简单，GitHub上已经实现对应的[库](https://github.com/jgilfelt/SystemBarTint)。
 
@@ -19,6 +19,7 @@ tags: Technology
 
 #### 其次，在Activity中加入如下代码：
 
+```Java
 	public void initSystemBarTint(boolean on, int res) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             setTranslucentStatus(on);
@@ -38,6 +39,7 @@ tags: Technology
         }
         win.setAttributes(winParams);
     }
+```
 
 #### 最后，在对应Activity的根布局中加入下面的属性即完成。
 

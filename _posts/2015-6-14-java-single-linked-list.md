@@ -2,8 +2,8 @@
 layout: post
 author: 孙福生
 title: Java 单向链表的操作
-categories: Java 算法与数据结构
-tags: Java
+background-color: '#673ab7'
+tags: 算法与数据结构
 ---
 
 * 单向链表增删改查的操作
@@ -18,7 +18,7 @@ tags: Java
 #### 首先定义一个简单的Person类
 里面仅仅包含两个元素姓名和年龄
 
-***
+```Java
 	public class Person {
 
 	    private String name;
@@ -51,12 +51,13 @@ tags: Java
 	    }
 		
 	}
+```
 
 
 #### 接下来构造PersonNode节点
 PersonNode节点拥有一个Person对象和PersonNode节点的指针
 
-***
+```Java
 	public class PersonNode {
 	
 	    private Person person;
@@ -84,12 +85,12 @@ PersonNode节点拥有一个Person对象和PersonNode节点的指针
 	    }
 
 	}
-
+```
 
 #### 增加节点
 新添加的节点指向头结点
 
-***
+```Java
     public void addNode(Person p) {
 	    if (isEmpty()) {
 	        head = new PersonNode(p, null);
@@ -98,10 +99,11 @@ PersonNode节点拥有一个Person对象和PersonNode节点的指针
 	    }
 	    size++;
 	}
+```
 
 #### 删除节点
 
-***
+```Java
 	public void deleteNode(String personName) {
 	    //情况一：链表节点数为0
 	    if (isEmpty()) {
@@ -146,10 +148,11 @@ PersonNode节点拥有一个Person对象和PersonNode节点的指针
 	        preIndex++;
 	    }
 	}
+```
 	
 #### 修改人名
 
-***
+```Java
 	public void modifyPersonName(String oldName, String newName) {
 		if (newName == null || oldName == null) {
 			return ;
@@ -160,10 +163,11 @@ PersonNode节点拥有一个Person对象和PersonNode节点的指针
 		}
 		p.setName(newName);
 	}
+```
 	
 #### 修改年龄
 
-***
+```Java
 	public void modifyPersonAge(String personName, int age) {
 		if (personName == null) {
 			return ;
@@ -177,10 +181,11 @@ PersonNode节点拥有一个Person对象和PersonNode节点的指针
 		}
 		p.setAge(age);
 	}
+```
 	
 #### 根据人名搜索这个人的信息
 
-***
+```Java
 	public Person searchPerson(String personName) {
 		for (PersonNode pn = head; pn != null; pn = pn.getNextNode()) {
 			if (pn.getPerson().getName().equals(personName)) {
@@ -189,10 +194,11 @@ PersonNode节点拥有一个Person对象和PersonNode节点的指针
 		}
 		return null;
 	}
+```
 	
 #### 根据人名搜索这个人的节点
 
-***
+```Java
 	public PersonNode searchNode(String personName) {
 		for (PersonNode pn = head; pn != null; pn = pn.getNextNode()) {
 			if (pn.getPerson().getName().equals(personName)) {
@@ -201,10 +207,11 @@ PersonNode节点拥有一个Person对象和PersonNode节点的指针
 		}
 		return null;
 	}
+```
 	
 #### 链表中是否包含该名字的节点
 
-***
+```Java
 	public boolean contains(String personName) {
 		if (!isEmpty()) {
 			for (PersonNode pn = head; pn != null; pn = pn.getNextNode()) {
@@ -215,17 +222,19 @@ PersonNode节点拥有一个Person对象和PersonNode节点的指针
 		}
 		return false;
 	}
+```
 	
 #### 是否为空
 
-***
+```Java
 	public boolean isEmpty() {
 		return size == 0;
 	}
+```
 	
 #### 打印所有节点
 
-***
+```Java
 	public void printAllNode() {
 		if (!isEmpty()) {
 			for (PersonNode pn=head; pn != null; pn = pn.getNextNode()) {
@@ -233,10 +242,11 @@ PersonNode节点拥有一个Person对象和PersonNode节点的指针
 			}
 		}
 	}
+```
 	
 #### 链表反转
 
-***
+```Java
 	public PersonNode reverse() {
 		if (isEmpty()) {
 			return null;
@@ -254,11 +264,12 @@ PersonNode节点拥有一个Person对象和PersonNode节点的指针
 		head = pre;
 		return head;
 	}
+```
 
 #### 判断链表是否为环链表
 两个指针slow，fast都从头开始遍历单链表，slow每次向前走1步，fast每次向前走2步，如果fast碰到了null，说明环不存在；如果fast碰到本应在身后的slow说明环存在。
 
-***
+```Java
 	public boolean isLoop() {
 		if (head == null || head.getNextNode() == null) {
 			return false;
@@ -274,6 +285,7 @@ PersonNode节点拥有一个Person对象和PersonNode节点的指针
 		}
 		return false;
 	}
+```
 
-详细内容请参考[GitHub源码](https://github.com/sfsheng0322/LinkedListProject)
+详细内容请参考[GitHub源码](https://github.com/sunfusheng/LinkedListProject)
 
