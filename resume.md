@@ -46,7 +46,7 @@ GitHub: [https://github.com/sunfusheng](https://github.com/sunfusheng)
 ### 工作经历  
 ***  
 
-#### 2016年12月至今，奇虎360，Android工程师
+#### 2016年12月至2018年9月，360，Android工程师
 
 [【360新闻】](http://app.mi.com/details?id=com.so.news.activity) 和 [【北京时间】](http://app.mi.com/details?id=com.btime.bjtime) 都是由360新闻团队倾力打造的一款基于热门及兴趣推荐的资讯阅读客户端，海量热门头条、新鲜事、视频直播，精彩资讯抢先看，亮点功能有个性化精准推荐；泛资讯现场直播，视频化新闻内容；原创团队深度新闻报道。 
 
