@@ -8,7 +8,7 @@ layout: page
 
 <br/>
 
-<img src="http://ourvm0t8d.bkt.clouddn.com/present_me.jpeg" style="width: 50%;">
+![](http://ourvm0t8d.bkt.clouddn.com/present_me.jpeg)
 
 <br/>
 
@@ -32,6 +32,6 @@ layout: page
 
 ### 个人微信公众号
 
-<img src="http://ourvm0t8d.bkt.clouddn.com/wx_gongzhonghao.png" style="width: 30%;">
+![](http://ourvm0t8d.bkt.clouddn.com/wx_gongzhonghao.png)
 
 <br/>
