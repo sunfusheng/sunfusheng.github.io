@@ -3,12 +3,8 @@ title: 关于
 layout: page
 ---
 
-我是孙福生，二零一三年毕业，毕业后一直从事Android客户端开发。  
+感谢您的关注，我是孙福生，2013年毕业，毕业后一直从事Android客户端开发。  
 目前就职于滴滴，曾工作于360、创新工场。
-
-<br/>
-
-![](http://ourvm0t8d.bkt.clouddn.com/present_me.jpeg)
 
 <br/>
 
@@ -32,6 +28,6 @@ layout: page
 
 ### 个人微信公众号
 
-![](http://ourvm0t8d.bkt.clouddn.com/wx_gongzhonghao.png)
+<img src="http://sunfusheng.com/assets/wx_gongzhonghao.png">
 
 <br/>
