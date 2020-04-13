@@ -28,6 +28,6 @@ Hi！我是孙福生，二零一三年毕业，毕业后一直从事Android客�
 
 ### 个人微信公众号
 
-![](http://ourvm0t8d.bkt.clouddn.com/wx_gongzhonghao.png)
+<img src="http://sunfusheng.com/assets/wx_gongzhonghao.png">
 
 <br/>
