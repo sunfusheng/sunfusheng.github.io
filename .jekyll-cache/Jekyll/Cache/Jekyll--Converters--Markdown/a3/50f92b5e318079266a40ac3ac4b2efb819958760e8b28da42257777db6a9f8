@@ -1,0 +1,8 @@
+I"�<p>最近工作上要用到的通信技术点－Socket，
+在2012年的时候就学习过socket编程，那时主要使用Unix C实现的，
+学完以后也没有使用过，现在做Android开发使用Java语言实现与那时Unix C实现基本一样。<br />
+1、创建Socket；<br />
+2、打开连接到Socket的输入/出流；<br />
+3、按照一定的协议对Socket进行读/写操作；<br />
+4、关闭Socket；</p>
+:ET

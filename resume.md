@@ -12,7 +12,7 @@ layout: page
 专 业: 自动化  
 出生年月: 1989年3月  
 
-手机号码: [156 9821 9533]()  
+手机号码: [185-1108-0322]()  
 电子邮件: [sfsheng0322@126.com]()  
 GitHub: [https://github.com/sunfusheng](https://github.com/sunfusheng)  
 个人博客: [sunfusheng.com](http://sunfusheng.com/)  
@@ -20,7 +20,7 @@ GitHub: [https://github.com/sunfusheng](https://github.com/sunfusheng)
 
 <br/>
 
-### 四年Android开发经验  
+### 六年Android开发经验  
 ***
 
 #### 专业技能  
@@ -90,81 +90,6 @@ GitHub: [https://github.com/sunfusheng](https://github.com/sunfusheng)
 [【蓝牙智能固话】](http://www.kaer.cn/pro-834.html)是一款基于4G网络或有线电话网络具有蓝牙通话功能的智能电话机。用户可以通过手机蓝牙控制带有蓝牙模块的智能电话机拨打企业通讯录中的号码、接听来电，查看通话记录等功能，同时话机也可以控制手机拨打电话、挂断电话。主要使用的技术包括：Android下蓝牙的连接、重连和数据传输、通过WebService与服务器交互以获取企业通讯录数据、使用SQlite数据库保存企业通讯录数据等。
 
 <br/>
-
-### GitHub开源项目  
-***  
-
-#### 1、[【StickyHeaderListView】](https://github.com/sfsheng0322/StickyHeaderListView)
-
-StickyHeaderListView是基于实际需求做出的灵活可变的UI视图，具体实现了如下功能：  
-一、支持下拉刷新和上拉加载更多功能。  
-二、支持无限循环的广告位。  
-三、使用GridView实现可动态配置的频道位、运营位和分割线。  
-四、自定义FilterView实现筛选功能，同时支持动画显示与动画隐藏。  
-五、支持FilterView滑动到顶部后吸附悬浮。  
-六、支持标题栏背景颜色渐变和字体颜色渐变。  
-七、实现了数据不足一屏动态添加空数据占位。  
-八、数据为空时ListView多type加载暂无数据视图。  
-
-Github地址：[https://github.com/sfsheng0322/StickyHeaderListView](https://github.com/sfsheng0322/StickyHeaderListView)  
-APK下载地址：[http://fir.im/StickyListView](http://fir.im/StickyListView)
-
-<br/>
-
-#### 2、[【MarqueeView】](https://github.com/sfsheng0322/MarqueeView)
-
-垂直翻页公告，可以将一大段文字根据屏幕显示的宽度截取，不断滚动显示，该项目也可以叫做垂直的跑马灯。
-
-Github地址：[https://github.com/sfsheng0322/MarqueeView](https://github.com/sfsheng0322/MarqueeView)  
-APK下载地址：[http://fir.im/MarqueeView](http://fir.im/MarqueeView)
-
-<br/>
-
-#### 3、[【RxGank】](https://github.com/sfsheng0322/RxGank)
-
-干货集中营Android客户端
-
-Github地址: [https://github.com/sfsheng0322/RxGank](https://github.com/sfsheng0322/RxGank)  
-APK下载地址: [http://fir.im/RxGank](http://fir.im/RxGank)
-
-<br/>
-
-#### 4、[【GlideImageView】](https://github.com/sfsheng0322/GlideImageView)
-
-该库是基于[Glide](https://github.com/bumptech/glide) V4.0设计的，实现如下特性:  
-1、通过提供的属性可以设置图片的圆角、边框。  
-2、可以设置点击触摸图片时的颜色、透明度。  
-3、一行代码加载来自网络、res、SDCard中的图片，可加载成圆形。  
-4、可以监听加载图片时的进度。 
-
-Github地址: [https://github.com/sfsheng0322/GlideImageView](https://github.com/sfsheng0322/GlideImageView)  
-APK下载地址: [http://fir.im/GlideImageView](http://fir.im/GlideImageView)
-
-<br/>
-
-### 教育背景  
-***  
-
-● 2009年9月至2013年6月，山东工商学院，本科，自动化专业  
-● 英语CET4  
-● 全国大学生电子设计大赛优秀奖  
-● 校智能车比赛二等奖  
-● 有嵌入式软件开发和PCB绘制基础  
-
-<br/>
-
-### 兴趣爱好  
-***  
-
-● 喜欢写博客和小应用程序  
-● 爱看书，爱运动，喜欢旅行  
-● 工作踏实认真，有钻研精神，接受能力强  
-
-
-
-
-
-
 
 
 

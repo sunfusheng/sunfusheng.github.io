@@ -1,0 +1,194 @@
+I"�R<p>IntentService 是比较少使用的，如果你没听过也不意外，就像 HandlerThread 很多开发者没用过或没听过，不过我也仅仅是在demo中使用。Google 为方便开发者使用，提高开发效率，封装了 IntentService 和 HandlerThread。HandlerThread 继承自 Thread，内部封装了 Looper。那 IntentService 呢？</p>
+
+<p>IntentService 是继承自 Service 并处理异步请求的一个类，在 IntentService 内有一个工作线程来处理耗时操作，当任务执行完后，IntentService 会自动停止，不需要我们去手动结束。如果启动 IntentService 多次，那么每一个耗时操作会以工作队列的方式在 IntentService 的 onHandleIntent 回调方法中执行，依次去执行，执行完自动结束。</p>
+
+<h2 id="示例代码">示例代码</h2>
+
+<h4 id="实现的功能">实现的功能</h4>
+
+<p>示例代码的功能是模仿下载在服务线程中每隔50ms计数一次直到计数为100停止，发送服务和线程运行状态的广播，Fragment中接收广播进行UI更新，如此。</p>
+
+<h4 id="myintentservice-全部代码">MyIntentService 全部代码</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyIntentService</span> <span class="kd">extends</span> <span class="nc">IntentService</span> <span class="o">{</span>
+
+        <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">isRunning</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="nc">LocalBroadcastManager</span> <span class="n">mLocalBroadcastManager</span><span class="o">;</span>
+
+        <span class="kd">public</span> <span class="nf">MyIntentService</span><span class="o">()</span> <span class="o">{</span>
+            <span class="kd">super</span><span class="o">(</span><span class="s">"MyIntentService"</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">()</span> <span class="o">{</span>
+            <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">();</span>
+            <span class="n">mLocalBroadcastManager</span> <span class="o">=</span> <span class="nc">LocalBroadcastManager</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+            <span class="n">sendServiceStatus</span><span class="o">(</span><span class="s">"服务启动"</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="nd">@Override</span>
+        <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onHandleIntent</span><span class="o">(</span><span class="nc">Intent</span> <span class="n">intent</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">try</span> <span class="o">{</span>
+                <span class="n">sendThreadStatus</span><span class="o">(</span><span class="s">"线程启动"</span><span class="o">,</span> <span class="n">count</span><span class="o">);</span>
+                <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">1_000</span><span class="o">);</span>
+                <span class="n">sendServiceStatus</span><span class="o">(</span><span class="s">"服务运行中..."</span><span class="o">);</span>
+
+                <span class="n">isRunning</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+                <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+                <span class="k">while</span> <span class="o">(</span><span class="n">isRunning</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">count</span><span class="o">++;</span>
+                    <span class="k">if</span> <span class="o">(</span><span class="n">count</span> <span class="o">&gt;=</span> <span class="mi">100</span><span class="o">)</span> <span class="o">{</span>
+                        <span class="n">isRunning</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+                    <span class="o">}</span>
+                    <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">50</span><span class="o">);</span>
+                    <span class="n">sendThreadStatus</span><span class="o">(</span><span class="s">"线程运行中..."</span><span class="o">,</span> <span class="n">count</span><span class="o">);</span>
+                <span class="o">}</span>
+                <span class="n">sendThreadStatus</span><span class="o">(</span><span class="s">"线程结束"</span><span class="o">,</span> <span class="n">count</span><span class="o">);</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onDestroy</span><span class="o">()</span> <span class="o">{</span>
+            <span class="kd">super</span><span class="o">.</span><span class="na">onDestroy</span><span class="o">();</span>
+            <span class="n">sendServiceStatus</span><span class="o">(</span><span class="s">"服务结束"</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="c1">// 发送服务状态信息</span>
+        <span class="kd">private</span> <span class="kt">void</span> <span class="nf">sendServiceStatus</span><span class="o">(</span><span class="nc">String</span> <span class="n">status</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nc">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Intent</span><span class="o">(</span><span class="nc">IntentServiceFragment</span><span class="o">.</span><span class="na">ACTION_TYPE_SERVICE</span><span class="o">);</span>
+            <span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">"status"</span><span class="o">,</span> <span class="n">status</span><span class="o">);</span>
+            <span class="n">mLocalBroadcastManager</span><span class="o">.</span><span class="na">sendBroadcast</span><span class="o">(</span><span class="n">intent</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="c1">// 发送线程状态信息</span>
+        <span class="kd">private</span> <span class="kt">void</span> <span class="nf">sendThreadStatus</span><span class="o">(</span><span class="nc">String</span> <span class="n">status</span><span class="o">,</span> <span class="kt">int</span> <span class="n">progress</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nc">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Intent</span><span class="o">(</span><span class="nc">IntentServiceFragment</span><span class="o">.</span><span class="na">ACTION_TYPE_THREAD</span><span class="o">);</span>
+            <span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">"status"</span><span class="o">,</span> <span class="n">status</span><span class="o">);</span>
+            <span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">"progress"</span><span class="o">,</span> <span class="n">progress</span><span class="o">);</span>
+            <span class="n">mLocalBroadcastManager</span><span class="o">.</span><span class="na">sendBroadcast</span><span class="o">(</span><span class="n">intent</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="fragment-中的广播相关代码">Fragment 中的广播相关代码</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyBroadcastReceiver</span> <span class="kd">extends</span> <span class="nc">BroadcastReceiver</span> <span class="o">{</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onReceive</span><span class="o">(</span><span class="nc">Context</span> <span class="n">context</span><span class="o">,</span> <span class="nc">Intent</span> <span class="n">intent</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">switch</span> <span class="o">(</span><span class="n">intent</span><span class="o">.</span><span class="na">getAction</span><span class="o">())</span> <span class="o">{</span>
+                <span class="k">case</span> <span class="nl">ACTION_TYPE_SERVICE:</span>
+                    <span class="n">tvServiceStatus</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">"服务状态："</span> <span class="o">+</span> <span class="n">intent</span><span class="o">.</span><span class="na">getStringExtra</span><span class="o">(</span><span class="s">"status"</span><span class="o">));</span>
+                    <span class="k">break</span><span class="o">;</span>
+                <span class="k">case</span> <span class="nl">ACTION_TYPE_THREAD:</span>
+                    <span class="kt">int</span> <span class="n">progress</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getIntExtra</span><span class="o">(</span><span class="s">"progress"</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>
+                    <span class="n">tvThreadStatus</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">"线程状态："</span> <span class="o">+</span> <span class="n">intent</span><span class="o">.</span><span class="na">getStringExtra</span><span class="o">(</span><span class="s">"status"</span><span class="o">));</span>
+                    <span class="n">progressBar</span><span class="o">.</span><span class="na">setProgress</span><span class="o">(</span><span class="n">progress</span><span class="o">);</span>
+                    <span class="n">tvProgress</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">progress</span> <span class="o">+</span> <span class="s">"%"</span><span class="o">);</span>
+                    <span class="k">break</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="注册服务启动服务">注册服务启动服务</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="c1">// 在 Manifest 中注册服务</span>
+    <span class="o">&lt;</span><span class="n">service</span> <span class="nl">android:</span><span class="n">name</span><span class="o">=</span><span class="s">".service.MyIntentService"</span><span class="o">/&gt;</span>
+
+    <span class="c1">// 像启动 Service 那样启动 IntentService</span>
+    <span class="nc">Intent</span> <span class="n">startIntent</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Intent</span><span class="o">(</span><span class="n">getActivity</span><span class="o">(),</span> <span class="nc">MyIntentService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="n">getActivity</span><span class="o">().</span><span class="na">startService</span><span class="o">(</span><span class="n">startIntent</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h4 id="具体参考github上项目"><a href="https://github.com/sunfusheng/In-depthStudy">具体参考GitHub上项目</a></h4>
+
+<h2 id="gif图演示">Gif图演示</h2>
+
+<p>1、点击［启动 IntentService］，服务运行，线程计数完成后，服务和线程都结束。</p>
+
+<p><img src="/assets/2016/gif_is1.gif" style="width: 50%;" /></p>
+
+<p>2、点击［启动 IntentService］，服务运行，线程计数完成前，点击［停止 IntentService］，服务结束，线程计数完成后线程结束。</p>
+
+<p><img src="/assets/2016/gif_is2.gif" style="width: 50%;" /></p>
+
+<p>3、点击两次［启动 IntentService］，服务运行，第一次线程计数完成后，进行第二次线程计数，两次完成后，服务和线程都结束。</p>
+
+<p><img src="/assets/2016/gif_is3.gif" style="width: 50%;" /></p>
+
+<p>4、点击两次［启动 IntentService］，服务运行，在第一次线程计数完成前，点击［停止 IntentService］，服务结束，第一次线程计数结束后不进行第二次计数。</p>
+
+<p><img src="/assets/2016/gif_is4.gif" style="width: 50%;" /></p>
+
+<h2 id="查看源码">查看源码</h2>
+
+<p>下面，从这几个功能点查看下源码：</p>
+
+<h4 id="1启动-intentservice-为什么不需要新建线程">1、启动 IntentService 为什么不需要新建线程？</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="c1">// IntentService 源码中的 onCreate() 方法</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">();</span>
+        <span class="c1">// HandlerThread 继承自 Thread，内部封装了 Looper，在这里新建线程并启动，所以启动 IntentService 不需要新建线程。</span>
+        <span class="nc">HandlerThread</span> <span class="n">thread</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HandlerThread</span><span class="o">(</span><span class="s">"IntentService["</span> <span class="o">+</span> <span class="n">mName</span> <span class="o">+</span> <span class="s">"]"</span><span class="o">);</span>
+        <span class="n">thread</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+
+        <span class="c1">// 获得工作线程的 Looper，并维护自己的工作队列。</span>
+        <span class="n">mServiceLooper</span> <span class="o">=</span> <span class="n">thread</span><span class="o">.</span><span class="na">getLooper</span><span class="o">();</span>
+        <span class="c1">// mServiceHandler 是属于工作线程的。</span>
+        <span class="n">mServiceHandler</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ServiceHandler</span><span class="o">(</span><span class="n">mServiceLooper</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kd">volatile</span> <span class="nc">ServiceHandler</span> <span class="n">mServiceHandler</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">ServiceHandler</span> <span class="kd">extends</span> <span class="nc">Handler</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="nf">ServiceHandler</span><span class="o">(</span><span class="nc">Looper</span> <span class="n">looper</span><span class="o">)</span> <span class="o">{</span>
+            <span class="kd">super</span><span class="o">(</span><span class="n">looper</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handleMessage</span><span class="o">(</span><span class="nc">Message</span> <span class="n">msg</span><span class="o">)</span> <span class="o">{</span>
+            <span class="c1">// onHandleIntent 方法在工作线程中执行，执行完调用 stopSelf() 结束服务。</span>
+            <span class="n">onHandleIntent</span><span class="o">((</span><span class="nc">Intent</span><span class="o">)</span><span class="n">msg</span><span class="o">.</span><span class="na">obj</span><span class="o">);</span>
+            <span class="n">stopSelf</span><span class="o">(</span><span class="n">msg</span><span class="o">.</span><span class="na">arg1</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="nd">@WorkerThread</span>
+    <span class="kd">protected</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">onHandleIntent</span><span class="o">(</span><span class="nc">Intent</span> <span class="n">intent</span><span class="o">);</span>
+
+<span class="err">####</span> <span class="mi">2</span><span class="err">、</span><span class="n">为什么不建议通过</span> <span class="n">bindService</span><span class="o">()</span> <span class="n">启动</span> <span class="nc">IntentService</span><span class="err">？</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="nc">IBinder</span> <span class="nf">onBind</span><span class="o">(</span><span class="nc">Intent</span> <span class="n">intent</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+<p>IntentService 源码中的 onBind() 默认返回 null；不适合 bindService() 启动服务，如果你执意要 bindService() 来启动 IntentService，可能因为你想通过 Binder 或 Messenger 使得 IntentService 和 Activity 可以通信，这样那么 onHandleIntent() 不会被回调，相当于在你使用 Service 而不是 IntentService。</p>
+
+<h4 id="3为什么多次启动-intentservice-会顺序执行事件停止服务后后续的事件得不到执行">3、为什么多次启动 IntentService 会顺序执行事件，停止服务后，后续的事件得不到执行？</h4>
+
+<p>IntentService 中使用的 Handler、Looper、MessageQueue 机制把消息发送到线程中去执行的，所以多次启动 IntentService 不会重新创建新的服务和新的线程，只是把消息加入消息队列中等待执行，而如果服务停止，会清除消息队列中的消息，后续的事件得不到执行。</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onStart</span><span class="o">(</span><span class="nc">Intent</span> <span class="n">intent</span><span class="o">,</span> <span class="kt">int</span> <span class="n">startId</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Message</span> <span class="n">msg</span> <span class="o">=</span> <span class="n">mServiceHandler</span><span class="o">.</span><span class="na">obtainMessage</span><span class="o">();</span>
+        <span class="n">msg</span><span class="o">.</span><span class="na">arg1</span> <span class="o">=</span> <span class="n">startId</span><span class="o">;</span>
+        <span class="n">msg</span><span class="o">.</span><span class="na">obj</span> <span class="o">=</span> <span class="n">intent</span><span class="o">;</span>
+        <span class="n">mServiceHandler</span><span class="o">.</span><span class="na">sendMessage</span><span class="o">(</span><span class="n">msg</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onDestroy</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">mServiceLooper</span><span class="o">.</span><span class="na">quit</span><span class="o">();</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="具体参考github上项目-1"><a href="https://github.com/sunfusheng/In-depthStudy">具体参考GitHub上项目</a></h4>
+
+:ET

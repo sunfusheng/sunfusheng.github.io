@@ -1,0 +1,6 @@
+I"9<p>先看几个概念：<br />
+线程：进程中负责程序执行的执行单元。一个进程中至少有一个线程。<br /><br />
+多线程：解决多任务同时执行的需求，合理使用CPU资源。多线程的运行是根据CPU切换完成，如何切换由CPU决定，因此多线程运行具有不确定性。<br /><br />
+线程池：基本思想还是一种对象池的思想，开辟一块内存空间，里面存放了众多(未死亡)的线程，池中线程执行调度由池管理器来处理。当有线程任务时，从池中取一个，执行完成后线程对象归池，这样可以避免反复创建线程对象所带来的性能开销，节省了系统的资源。<br /><br />
+如果对线程概念不清晰的话，不妨先看看<a href="http://mp.weixin.qq.com/s?__biz=MjM5NzA1MTcyMA==&amp;mid=403498894&amp;idx=2&amp;sn=219c1a6001b5bb7e6bdc7963b1af8450&amp;scene=2&amp;srcid=0330UDNmQ2GlTOLo1CY8IZfH&amp;from=timeline&amp;isappinstalled=0#wechat_redirect">我是一个线程</a>这篇文章，拟人化的故事阐述线程的工作原理。</p>
+:ET

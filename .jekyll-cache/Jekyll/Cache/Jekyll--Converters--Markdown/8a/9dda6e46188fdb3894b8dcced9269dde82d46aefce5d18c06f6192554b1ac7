@@ -1,0 +1,4 @@
+I"2<p>为什么 CoordinatorLayout 支持 NestedScrollView 嵌套滑动不支持 ScrollView；<br />
+为什么 CoordinatorLayout 支持 RecyclerView 嵌套滑动不支持 ListView；<br />
+这一篇博文我们要知道 CoordinatorLayout 为什么不支持，还要让它支持 ListView 的嵌套滑动。</p>
+:ET

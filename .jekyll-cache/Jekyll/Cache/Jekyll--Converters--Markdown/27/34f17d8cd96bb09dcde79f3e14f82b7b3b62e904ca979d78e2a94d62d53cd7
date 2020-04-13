@@ -1,0 +1,41 @@
+I"�<p>当Android 4.4 KitKat发布的时候，每个人都很兴奋看到新的半透明状态栏和导航栏，这确实提高了安卓系统的美感，
+我也是被很多这样的应用吸引，试着实现这样沉浸式的效果，看下效果图更直观。</p>
+
+<p><img src="/assets/2015/android_systembartint_icon.png" style="width: 50%;" /></p>
+
+<p>完成这样的效果很简单，GitHub上已经实现对应的<a href="https://github.com/jgilfelt/SystemBarTint">库</a>。</p>
+
+<h4 id="首先studio下添加依赖或者引入相应的jar文件">首先，Studio下添加依赖或者引入相应的jar文件。</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+</code></pre></div></div>
+
+<h4 id="其次在activity中加入如下代码">其次，在Activity中加入如下代码：</h4>
+
+<pre><code class="language-Java">	public void initSystemBarTint(boolean on, int res) {
+        if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.KITKAT) {
+            setTranslucentStatus(on);
+            SystemBarTintManager tintManager = new SystemBarTintManager(this);
+            tintManager.setStatusBarTintEnabled(on);
+            tintManager.setStatusBarTintResource(res);
+        }
+    }
+
+    private void setTranslucentStatus(boolean on) {
+        Window win = getWindow(); WindowManager.LayoutParams winParams = win.getAttributes();
+        int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+        if (on) {
+            winParams.flags |= bits;
+        } else {
+            winParams.flags &amp;= ~bits;
+        }
+        win.setAttributes(winParams);
+    }
+</code></pre>
+
+<h4 id="最后在对应activity的根布局中加入下面的属性即完成">最后，在对应Activity的根布局中加入下面的属性即完成。</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>android:fitsSystemWindows=”true” 
+</code></pre></div></div>
+
+:ET

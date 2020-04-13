@@ -1,0 +1,6 @@
+I"u<p>本文使用仅仅是使用<a href="https://github.com/paveldudka/blurring">Blurring Github库</a>实现高斯模糊效果，在这里自己做下笔记。<br />
+具体实现步骤，如下：<br />
+1、截屏当前显示页并处理状态栏和标题栏是否显示<br />
+2、对截屏后的图片做高斯模糊处理<br />
+3、根据情况释放cache资源<br /></p>
+:ET

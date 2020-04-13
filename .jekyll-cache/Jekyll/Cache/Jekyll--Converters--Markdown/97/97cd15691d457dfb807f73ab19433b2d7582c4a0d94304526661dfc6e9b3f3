@@ -1,0 +1,58 @@
+I"L<p>贝赛尔曲线大家应该都不陌生吧，如果你还陌生，那应该看看本文示例讲解的二、三阶贝赛尔曲线。
+本篇文章从基础开始，自定义View来使用Android系统提供的贝赛尔曲线API。<br />
+贝塞尔曲线（Bezier Curve）于1962，由法国工程师皮埃尔·贝塞尔广泛发表，他运用贝塞尔曲线来为汽车的主体进行设计。</p>
+
+<p>首先我们要知道二、三阶贝赛尔曲线是一种什么样的曲线呢，二阶贝赛尔曲线有一个起始点、一个终止点和一个控制点，曲线连接起始点和终止点，
+并且控制点分别与起始点和终止点的连线是曲线的切线。同样三阶贝赛尔曲线有两个控制点，下面看一下它们的效果图。</p>
+
+<h2 id="二阶贝赛尔曲线">二阶贝赛尔曲线</h2>
+
+<p><img src="/assets/2016/bezier1.gif" style="width: 50%;" /></p>
+
+<h2 id="三阶贝赛尔曲线">三阶贝赛尔曲线</h2>
+
+<p><img src="/assets/2016/bezier2.gif" style="width: 50%;" /></p>
+
+<h2 id="基础巩固">基础巩固</h2>
+
+<p>本示例中主要用了Paint和Path来绘制贝赛尔曲线，下面把它们的相关基础知识贴在下面</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Paint即画笔，可以绘制图形、可以绘制文字，有很多属性设置方法： 
+setAntiAlias: 设置画笔的锯齿效果，为true即给该图形或文字打上抗锯齿标志  
+setColor: 设置画笔颜色  
+setAlpha: 设置Alpha值   
+setTextSize: 设置字体尺寸  
+setStyle: 设置画笔风格，Paint.Style.STROKE为空心，Paint.Style.FILL为实心  
+setStrokeWidth: 设置空心的边框宽度  
+
+Path即路径，在该类中封装了许多几何路径的方法，比如  
+moveTo: 改变起始点的位置  
+lineTo: 连接某个坐标点  
+arcTo: 绘制弧形路线  
+addRect: 绘制矩形  
+addOval: 绘制椭圆  
+addArc: 绘制圆弧  
+addCircle: 绘制圆形  
+还包括我们要用的二、三阶贝赛尔曲线的方法  
+quadTo(float x1, float y1, float x2, float y2):  二阶贝赛尔曲线方法
+cubicTo(float x1, float y1, float x2, float y2, float x3, float y3): 三阶贝赛尔曲线的方法  
+
+最后补充两个单词：  
+1、quadratic [kwɒ'drætɪk] adj. 平方的、二次的  
+2、cubic ['kjuːbɪk] adj. 立方的、三次的  
+</code></pre></div></div>
+
+<h2 id="接下来是自定义三阶贝赛尔曲线view的代码">接下来是自定义三阶贝赛尔曲线View的代码</h2>
+
+<p><img src="/assets/2016/bezier_code1.png" /></p>
+
+<p><img src="/assets/2016/bezier_code2.png" /></p>
+
+<p><img src="/assets/2016/bezier_code3.png" /></p>
+
+<p><img src="/assets/2016/bezier_code4.png" /></p>
+
+<p>这是三阶贝赛尔曲线的代码，如果想看更多代码请移步到我的GitHub上:<br />
+<a href="https://github.com/sunfusheng/In-depthStudy">GitHub上示例工程In-depthStudy</a></p>
+
+:ET

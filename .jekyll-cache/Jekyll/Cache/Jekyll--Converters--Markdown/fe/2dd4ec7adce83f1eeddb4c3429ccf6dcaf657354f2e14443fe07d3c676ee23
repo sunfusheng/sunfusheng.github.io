@@ -1,0 +1,343 @@
+I"E�<p>上一篇<a href="http://www.jianshu.com/p/b8197dd2934c">【线程、多线程与线程池总结】</a>中主要记录线程、多线程相关概念，侧重于线程的Future使用与线程池的操作；同样这一篇【反射、注解与依赖注入总结】依然着重于相关概念与使用。<br /><br />
+现在在我们构建自己或公司的项目中，或多或少都会依赖几个流行比较屌的第三方库，比如：<a href="https://github.com/JakeWharton/butterknife">Butter Knife</a>、<a href="https://github.com/square/retrofit">Retrofit</a>、<a href="https://github.com/google/dagger">Dagger 2</a>等，如果你没用过，那你需要找时间补一下啦；有时在使用后我们会好奇他们到底是怎么做到这种简洁、高效、松耦合等诸多优点的，当然这里我不探讨它们具体怎么实现的，而关心的是它们都用到同样的技术反射和注解，并实现的依赖注入。</p>
+
+<p>如果你好奇这些库具体是怎么实现的，或者想了解他们实现的原理，这里向你推荐几篇文章：<br />
+1、<a href="http://www.jianshu.com/p/6f7a04488462">android注解Butterknife的使用及代码分析</a><br />
+2、<a href="http://xuzhengchao.com/java/retrofit-source-code.html">Retrofit源码1: 为什么写一个interface就可以实现http请求</a><br />
+3、<a href="http://www.jianshu.com/p/45cb536be2f4">Retrofit分析-漂亮的解耦套路</a>  <br />
+4、<a href="http://a.codekk.com/detail/Android/%E6%89%94%E7%89%A9%E7%BA%BF/Dagger%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90">Dagger 源码解析</a><br />
+5、<a href="http://www.jianshu.com/p/cd2c1c9f68d4">Android：dagger2让你爱不释手－基础依赖注入框架篇</a><br />
+6、<a href="http://www.jianshu.com/p/1d42d2e6f4a5">Android：dagger2让你爱不释手－重点概念讲解、融合篇</a><br />
+7、<a href="http://www.jianshu.com/p/65737ac39c44">Android：dagger2让你爱不释手－终结篇</a></p>
+
+<p>这些好文章已经帮你收藏了，下面直接进入我的主题【反射、注解与依赖注入总结】。</p>
+
+<h2 id="-反射reflection">● 反射（Reflection）</h2>
+
+<h4 id="反射的概念">反射的概念</h4>
+
+<p>主要是指程序可以访问，检测和修改它本身状态或行为的一种能力，并能根据自身行为的状态和结果，调整或修改应用所描述行为的状态和相关的语义。</p>
+
+<p>概念看着就有些晕或不知所云啦，可以通过反射的作用理解它的概念。</p>
+
+<h4 id="反射的作用">反射的作用</h4>
+
+<p>反射可以让我们在运行时获取类的属性，方法，构造方法、父类、接口等信息，通过反射还可以让我们在运行期实例化对象、调用方法、即使方法或属性是私有的的也可以通过反射的形式调用。</p>
+
+<p>所有为什么第三方库基本都会使用到反射，正是因为反射这种 “看透 Class” 的能力。</p>
+
+<h4 id="反射相关的类方法">反射相关的类、方法</h4>
+
+<p>要看透一个类，首先要获取这个类的对象，其它信息都是通过这个对象获取的，下面的所有的示例具体操作代码请参考 <a href="https://github.com/sunfusheng/In-depthStudy">【个人学习项目DroidStudy】</a>，我在这个工程下新建一个 ReflectionActivity，包的路径为 com.sun.study.ui.activity.ReflectionActivity，通过反射相关的类、方法让我看透这个类。</p>
+
+<p>1、获取对象的三种方式：</p>
+
+<p>第一种、知道一个类，直接获取 Class 对象</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="nc">Class</span><span class="o">&lt;?&gt;</span> <span class="n">cls1</span> <span class="o">=</span> <span class="nc">ReflectionActivity</span><span class="o">.</span><span class="na">class</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>第二种、如果已经得到了某个对象，可以通过这个对象获取 Class 对象</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="nc">ReflectionActivity</span> <span class="n">activity</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ReflectionActivity</span><span class="o">();</span>
+	<span class="nc">Class</span><span class="o">&lt;?&gt;</span> <span class="n">cls2</span> <span class="o">=</span> <span class="n">activity</span><span class="o">.</span><span class="na">getClass</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>第三种、如果你在编译期获取不到目标类型，但是你知道它的完整类路径，那么你可以通过如下的形式来获取 Class 对象，这样获取可能会抛出异常 ClassNotFoundException。</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="k">try</span> <span class="o">{</span>
+		<span class="nc">Class</span><span class="o">&lt;?&gt;</span> <span class="n">cls3</span> <span class="o">=</span> <span class="nc">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="s">"com.sun.study.ui.activity.ReflectionActivity"</span><span class="o">);</span>
+	<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">ClassNotFoundException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+	<span class="o">}</span>
+</code></pre></div></div>
+
+<p>2、反射的相关方法和示例</p>
+
+<p>列出反射的相关方法</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="n">getName</span><span class="o">()</span><span class="err">：</span><span class="n">获得类的完整名字</span><span class="err">。</span>  
+	<span class="n">newInstance</span><span class="o">()</span><span class="err">：</span><span class="n">通过类的不带参数的构造方法创建这个类的一个对象</span><span class="err">。</span>
+
+	<span class="n">getFields</span><span class="o">()</span><span class="err">：</span><span class="n">获得类的public类型的属性</span><span class="err">。</span>  
+	<span class="n">getDeclaredFields</span><span class="o">()</span><span class="err">：</span><span class="n">获得类的所有属性</span><span class="err">。</span>
+
+	<span class="n">getMethods</span><span class="o">()</span><span class="err">：</span><span class="n">获得类的public类型的方法</span><span class="err">。</span>  
+	<span class="n">getDeclaredMethods</span><span class="o">()</span><span class="err">：</span><span class="n">获得类的所有方法</span><span class="err">。</span>  
+	<span class="n">getMethod</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">,</span> <span class="nc">Class</span><span class="o">[]</span> <span class="n">parameterTypes</span><span class="o">)</span><span class="err">：</span><span class="n">获得类的特定方法</span><span class="err">。</span>
+	
+	<span class="n">getModifiers</span><span class="o">()</span><span class="n">和Modifier</span><span class="o">.</span><span class="na">toString</span><span class="o">()</span><span class="err">：</span><span class="n">获得属修饰符</span><span class="err">，</span><span class="n">例如private</span><span class="err">，</span><span class="kd">public</span><span class="err">，</span><span class="n">static等</span>  
+	<span class="n">getReturnType</span><span class="o">()</span><span class="err">：</span><span class="n">获得方法的返回类型</span>  
+	<span class="n">getParameterTypes</span><span class="o">()</span><span class="err">：</span><span class="n">获得方法的参数类型</span>
+
+	<span class="n">getConstructors</span><span class="o">()</span><span class="err">：</span><span class="n">获得类的public类型的构造方法</span><span class="err">。</span>  
+	<span class="n">getConstructor</span><span class="o">(</span><span class="nc">Class</span><span class="o">[]</span> <span class="n">parameterTypes</span><span class="o">)</span><span class="err">：</span><span class="n">获得类的特定构造方法</span><span class="err">。</span>
+	
+	<span class="n">getSuperclass</span><span class="o">()</span><span class="err">：</span><span class="n">获取某类的父类</span>  
+	<span class="n">getInterfaces</span><span class="o">()</span><span class="err">：</span><span class="n">获取某类实现的接口</span>
+</code></pre></div></div>
+
+<p>示例一：获得类的所有方法（Method）信息</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="kd">private</span> <span class="kt">void</span> <span class="nf">getMethodsInfo</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">Class</span><span class="o">&lt;</span><span class="nc">ReflectionActivity</span><span class="o">&gt;</span> <span class="n">cls</span> <span class="o">=</span> <span class="nc">ReflectionActivity</span><span class="o">.</span><span class="na">class</span><span class="o">;</span>
+        <span class="nc">Method</span><span class="o">[]</span> <span class="n">methods</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="na">getDeclaredMethods</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">methods</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">return</span><span class="o">;</span>
+
+        <span class="nc">StringBuilder</span> <span class="n">sb</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">StringBuilder</span><span class="o">();</span>
+        <span class="k">for</span> <span class="o">(</span><span class="nc">Method</span> <span class="nl">method:</span><span class="n">methods</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="nc">Modifier</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">method</span><span class="o">.</span><span class="na">getModifiers</span><span class="o">())).</span><span class="na">append</span><span class="o">(</span><span class="s">" "</span><span class="o">);</span>
+            <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">method</span><span class="o">.</span><span class="na">getReturnType</span><span class="o">()).</span><span class="na">append</span><span class="o">(</span><span class="s">" "</span><span class="o">);</span>
+            <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">method</span><span class="o">.</span><span class="na">getName</span><span class="o">()).</span><span class="na">append</span><span class="o">(</span><span class="s">"("</span><span class="o">);</span>
+            <span class="nc">Class</span><span class="o">[]</span> <span class="n">parameters</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="na">getParameterTypes</span><span class="o">();</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">parameters</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">parameters</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+                    <span class="nc">Class</span> <span class="n">paramCls</span> <span class="o">=</span> <span class="n">parameters</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+                    <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">paramCls</span><span class="o">.</span><span class="na">getSimpleName</span><span class="o">());</span>
+                    <span class="k">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">parameters</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="mi">1</span><span class="o">)</span> <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">", "</span><span class="o">);</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+            <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">")\n\n"</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="n">tvInfo</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">sb</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+<p>运行结果如下图：</p>
+
+<p><img src="/assets/2016/reflection_icon1.png" style="width: 50%;" /></p>
+
+<p>示例一：获得类的所有属性（Field）信息，并修改类型Int属性i的值</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">modifyFieldValue</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">Class</span><span class="o">&lt;</span><span class="nc">ReflectionActivity</span><span class="o">&gt;</span> <span class="n">cls</span> <span class="o">=</span> <span class="nc">ReflectionActivity</span><span class="o">.</span><span class="na">class</span><span class="o">;</span>
+        <span class="nc">Field</span><span class="o">[]</span> <span class="n">fields</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="na">getDeclaredFields</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">fields</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">return</span><span class="o">;</span>
+
+        <span class="nc">StringBuilder</span> <span class="n">sb</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">StringBuilder</span><span class="o">();</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">"获得类的所有属性信息：\n\n"</span><span class="o">);</span>
+        <span class="k">for</span> <span class="o">(</span><span class="nc">Field</span> <span class="nl">field:</span><span class="n">fields</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="nc">Modifier</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">field</span><span class="o">.</span><span class="na">getModifiers</span><span class="o">())).</span><span class="na">append</span><span class="o">(</span><span class="s">" "</span><span class="o">);</span>
+            <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">field</span><span class="o">.</span><span class="na">getType</span><span class="o">().</span><span class="na">getSimpleName</span><span class="o">()).</span><span class="na">append</span><span class="o">(</span><span class="s">" "</span><span class="o">);</span>
+            <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">field</span><span class="o">.</span><span class="na">getName</span><span class="o">()).</span><span class="na">append</span><span class="o">(</span><span class="s">";"</span><span class="o">);</span>
+            <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">"\n\n"</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">"属性i的默认值：i = "</span><span class="o">);</span>
+            <span class="nc">Field</span> <span class="n">f</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="na">getDeclaredField</span><span class="o">(</span><span class="s">"i"</span><span class="o">);</span>
+            <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">f</span><span class="o">.</span><span class="na">getInt</span><span class="o">(</span><span class="s">"i"</span><span class="o">)).</span><span class="na">append</span><span class="o">(</span><span class="s">"\n\n"</span><span class="o">);</span>
+            <span class="n">f</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="s">"i"</span><span class="o">,</span> <span class="mi">100</span><span class="o">);</span>
+            <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">"属性i修改后的值：i = "</span><span class="o">);</span>
+            <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">f</span><span class="o">.</span><span class="na">getInt</span><span class="o">(</span><span class="s">"i"</span><span class="o">)).</span><span class="na">append</span><span class="o">(</span><span class="s">"\n\n"</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+
+        <span class="n">tvInfo</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">sb</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+        <span class="n">toolbar</span><span class="o">.</span><span class="na">setSubtitle</span><span class="o">(</span><span class="s">"修改类型Int属性i的值"</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+<p>运行结果如下图：</p>
+
+<p><img src="/assets/2016/reflection_icon2.png" style="width: 50%;" /></p>
+
+<p>更多示例请参考 <a href="https://github.com/sfsheng0322/In-depthStudy">【个人学习项目DroidStudy】</a></p>
+
+<p>反射的相关内容先记录到这，接下来看看注解相关概念与使用。</p>
+
+<h2 id="-注解annotation">● 注解（Annotation）</h2>
+
+<h4 id="注解的概念">注解的概念</h4>
+
+<p>注解（Annotation），也叫元数据。一种代码级别的说明。它是JDK 1.5及以后版本引入的一个特性，与类、接口、枚举是在同一个层次。它可以声明在包、类、字段、方法、局部变量、方法参数等的前面，用来对这些元素进行说明，注释。</p>
+
+<h4 id="注解的作用">注解的作用</h4>
+
+<p>1、标记作用，用于告诉编译器一些信息让编译器能够实现基本的编译检查，如@Override、Deprecated，看下它俩的源码</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="nd">@Target</span><span class="o">(</span><span class="nc">ElementType</span><span class="o">.</span><span class="na">METHOD</span><span class="o">)</span>
+	<span class="nd">@Retention</span><span class="o">(</span><span class="nc">RetentionPolicy</span><span class="o">.</span><span class="na">SOURCE</span><span class="o">)</span>
+	<span class="kd">public</span> <span class="nd">@interface</span> <span class="nc">Override</span> <span class="o">{</span>
+	<span class="o">}</span>
+	
+	<span class="nd">@Documented</span>
+	<span class="nd">@Retention</span><span class="o">(</span><span class="nc">RetentionPolicy</span><span class="o">.</span><span class="na">RUNTIME</span><span class="o">)</span>
+	<span class="kd">public</span> <span class="nd">@interface</span> <span class="nc">Deprecated</span> <span class="o">{</span>
+	<span class="o">}</span>
+</code></pre></div></div>
+
+<p>2、编译时动态处理，动态生成代码，如<a href="https://github.com/JakeWharton/butterknife">Butter Knife</a>、<a href="https://github.com/google/dagger">Dagger 2</a></p>
+
+<p>3、运行时动态处理，获得注解信息，如<a href="https://github.com/square/retrofit">Retrofit</a></p>
+
+<h4 id="注解的分类">注解的分类</h4>
+
+<p>注解的分类有两种分法：</p>
+
+<h5 id="第一种分法">第一种分法</h5>
+
+<p>1、基本内置注解，是指Java自带的几个Annotation，如@Override、Deprecated、@SuppressWarnings等</p>
+
+<p>2、元注解（meta-annotation），是指负责注解其他注解的注解，JDK 1.5及以后版本定义了4个标准的元注解类型，如下：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="mi">1</span><span class="err">、</span><span class="nd">@Target</span>
+	<span class="mi">2</span><span class="err">、</span><span class="nd">@Retention</span>
+	<span class="mi">3</span><span class="err">、</span><span class="nd">@Documented</span>
+	<span class="mi">4</span><span class="err">、</span><span class="nd">@Inherited</span>
+</code></pre></div></div>
+
+<p>3、自定义注解，根据需要可以自定义注解，自定义注解需要用到上面的meta-annotation</p>
+
+<h5 id="第二种分法根据作用域分类">第二种分法，根据作用域分类</h5>
+
+<p>1、源码时注解（RetentionPolicy.SOURCE）<br />
+2、编译时注解（RetentionPolicy.CLASS）<br />
+3、运行时注解（RetentionPolicy.RUNTIME）</p>
+
+<h4 id="注解相关知识点">注解相关知识点</h4>
+
+<p>1、元注解相关信息</p>
+
+<p>@Target：指Annotation所修饰的对象范围，通过ElementType取值有8种，如下</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="no">TYPE</span><span class="err">：</span><span class="n">类</span><span class="err">、</span><span class="n">接口</span><span class="err">（</span><span class="n">包括注解类型</span><span class="err">）</span><span class="n">或枚举</span>
+    <span class="no">FIELD</span><span class="err">：</span><span class="n">属性</span>
+    <span class="no">METHOD</span><span class="err">：</span><span class="n">方法</span>
+    <span class="no">PARAMETER</span><span class="err">：</span><span class="n">参数</span>
+    <span class="no">CONSTRUCTOR</span><span class="err">：</span><span class="n">构造函数</span>
+    <span class="no">LOCAL_VARIABLE</span><span class="err">：</span><span class="n">局部变量</span>
+    <span class="no">ANNOTATION_TYPE</span><span class="err">：</span><span class="n">注解类型</span>
+    <span class="no">PACKAGE</span><span class="err">：</span><span class="n">包</span>
+</code></pre></div></div>
+
+<p>@Retention：指Annotation被保留的时间长短，通过RetentionPolicy取值有3种，如下：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="no">SOURCE</span><span class="err">：</span><span class="n">在源文件中有效</span><span class="err">（</span><span class="n">即源文件保留</span><span class="err">）</span>  
+	<span class="no">CLASS</span><span class="err">：</span><span class="n">在class文件中有效</span><span class="err">（</span><span class="n">即class保留</span><span class="err">）</span>  
+	<span class="no">RUNTIME</span><span class="err">：</span><span class="n">在运行时有效</span><span class="err">（</span><span class="n">即运行时保留</span><span class="err">）</span>
+</code></pre></div></div>
+
+<p>@Documented：是一个标记注解，用于描述其它类型的注解应该被作为被标注的程序成员的公共API，因此可以被例如javadoc此类的工具文档化。</p>
+
+<p>@Inherited：也是一个标记注解，@Inherited阐述了某个被标注的类型是被继承的</p>
+
+<p>2、注解定义格式</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">注解名</span> <span class="o">{</span> <span class="n">定义体</span> <span class="o">}</span>
+</code></pre></div></div>
+
+<p>3、注解参数可支持的数据类型：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>8种基本数据类型 int、float、boolean、byte、double、char、long、short  
+String、Class、enum、Annotation  
+以上所有类型的数组
+</code></pre></div></div>
+
+<p>4、⚠注意：自定义注解如果只有一个参数成员，最好把定义体参数名称设为”value”，如@Target</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="nd">@Documented</span>
+	<span class="nd">@Retention</span><span class="o">(</span><span class="nc">RetentionPolicy</span><span class="o">.</span><span class="na">RUNTIME</span><span class="o">)</span>
+	<span class="nd">@Target</span><span class="o">(</span><span class="nc">ElementType</span><span class="o">.</span><span class="na">ANNOTATION_TYPE</span><span class="o">)</span>
+	<span class="kd">public</span> <span class="nd">@interface</span> <span class="nc">Target</span> <span class="o">{</span>
+    	<span class="nc">ElementType</span><span class="o">[]</span> <span class="nf">value</span><span class="o">();</span>
+	<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="看一个示例">看一个示例</h4>
+
+<p>具体要求和运行结果都在下面这张图上显示出来了，贴下图</p>
+
+<p><img src="/assets/2016/annotation_icon.png" style="width: 50%;" /></p>
+
+<p>再贴三块代码，首先是自定义注解代码：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="nd">@Target</span><span class="o">(</span><span class="nc">ElementType</span><span class="o">.</span><span class="na">METHOD</span><span class="o">)</span>
+	<span class="nd">@Retention</span><span class="o">(</span><span class="nc">RetentionPolicy</span><span class="o">.</span><span class="na">RUNTIME</span><span class="o">)</span>
+	<span class="nd">@Inherited</span>
+	<span class="nd">@Documented</span>
+	<span class="kd">public</span> <span class="nd">@interface</span> <span class="nc">RequestAnnotation</span> <span class="o">{</span>
+    	<span class="kt">boolean</span> <span class="nf">withDialog</span><span class="o">()</span> <span class="k">default</span> <span class="kc">true</span><span class="o">;</span>
+    	<span class="nc">String</span> <span class="nf">withMessage</span><span class="o">()</span> <span class="k">default</span> <span class="s">"正在加载，请稍后..."</span><span class="o">;</span>
+	<span class="o">}</span>
+</code></pre></div></div>
+
+<p>其次是执行模拟的网络请求，核心代码是通过上面的反射和注解完成的；具体详细代码请参考 <a href="https://github.com/sfsheng0322/In-depthStudy">【个人学习项目DroidStudy】</a>，下次使用动态代理和Google的dexmaker完成这个功能，敬请关注，如果你对线程池还不清晰请参考我以前的文章<a href="http://www.jianshu.com/p/b8197dd2934c">【线程、多线程与线程池总结】</a>。贴下核心代码：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="c1">// 线程池</span>
+	<span class="kd">private</span> <span class="kd">static</span> <span class="nc">ExecutorService</span> <span class="n">pool</span> <span class="o">=</span> <span class="nc">Executors</span><span class="o">.</span><span class="na">newCachedThreadPool</span><span class="o">();</span>
+
+	<span class="c1">// 模拟处理网络请求</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">process</span><span class="o">(</span><span class="kd">final</span> <span class="nc">Class</span><span class="o">&lt;?&gt;</span> <span class="n">clazz</span><span class="o">,</span> <span class="nc">String</span> <span class="n">methodName</span><span class="o">,</span> <span class="kd">final</span> <span class="nc">Object</span><span class="o">...</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+        <span class="nc">Class</span><span class="o">[]</span> <span class="n">argsClass</span> <span class="o">=</span> <span class="n">getClazzByArgs</span><span class="o">(</span><span class="n">args</span><span class="o">);</span>
+
+        <span class="kd">final</span> <span class="nc">Method</span> <span class="n">method</span> <span class="o">=</span> <span class="n">clazz</span><span class="o">.</span><span class="na">getDeclaredMethod</span><span class="o">(</span><span class="n">methodName</span><span class="o">,</span> <span class="n">argsClass</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">method</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">sendMsg</span><span class="o">(</span><span class="no">TYPE_ERROR</span><span class="o">);</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="c1">// 获取注解信息</span>
+        <span class="nc">RequestAnnotation</span> <span class="n">annotation</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="na">getAnnotation</span><span class="o">(</span><span class="nc">RequestAnnotation</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">annotation</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">annotation</span><span class="o">.</span><span class="na">withDialog</span><span class="o">())</span> <span class="o">{</span>
+            <span class="n">loadingDialog</span><span class="o">.</span><span class="na">show</span><span class="o">(</span><span class="n">annotation</span><span class="o">.</span><span class="na">withMessage</span><span class="o">());</span>
+        <span class="o">}</span>
+
+        <span class="n">pool</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="k">new</span> <span class="nc">Runnable</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+                <span class="k">try</span> <span class="o">{</span>
+                    <span class="n">method</span><span class="o">.</span><span class="na">setAccessible</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+                    <span class="n">method</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">clazz</span><span class="o">.</span><span class="na">newInstance</span><span class="o">(),</span> <span class="n">args</span><span class="o">);</span>
+                    <span class="n">sendMsg</span><span class="o">(</span><span class="no">TYPE_SUCCESS</span><span class="o">);</span>
+                <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+<p>最后是调用网络请求接口：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="nd">@RequestAnnotation</span><span class="o">(</span><span class="n">withDialog</span> <span class="o">=</span> <span class="kc">false</span><span class="o">,</span> <span class="n">withMessage</span> <span class="o">=</span> <span class="s">"正在加载，请稍后..."</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">apiTestFunc</span><span class="o">(</span><span class="nc">String</span> <span class="n">param1</span><span class="o">,</span> <span class="nc">String</span> <span class="n">param2</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="c1">// 模拟网络请求的耗时操作</span>
+            <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">3000</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    
+    <span class="c1">// 点击执行的代码</span>
+    <span class="nc">DynamicProxyUtil</span> <span class="n">proxyUtil</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">DynamicProxyUtil</span><span class="o">(</span><span class="nc">AnnotationActivity</span><span class="o">.</span><span class="na">this</span><span class="o">);</span>
+	<span class="n">proxyUtil</span><span class="o">.</span><span class="na">process</span><span class="o">(</span><span class="nc">RequestNetworkApi</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="s">"apiTestFunc"</span><span class="o">,</span> <span class="s">"参数一"</span><span class="o">,</span> <span class="s">"参数二"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h2 id="-依赖注入dependency-injection">● 依赖注入（Dependency Injection）</h2>
+
+<p>依赖注入（Dependency Injection）：可以通过这个服务来安全的注入组件到应用程序中，在应用程序部署的时候还可以选择从特定的接口属性进行注入。</p>
+
+<p>看完上面反射和注解的记录后，可以更好的理解依赖注入，如果你不用那些第三方的注入库你也在经常用到依赖注入，比如下面这一段从<a href="http://p.codekk.com/">codekk</a>上截取的代码：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Human</span> <span class="o">{</span>
+    	<span class="o">...</span>
+    	<span class="nc">Father</span> <span class="n">father</span><span class="o">;</span>
+    	<span class="o">...</span>
+    	<span class="kd">public</span> <span class="nf">Human</span><span class="o">(</span><span class="nc">Father</span> <span class="n">father</span><span class="o">)</span> <span class="o">{</span>
+        	<span class="k">this</span><span class="o">.</span><span class="na">father</span> <span class="o">=</span> <span class="n">father</span><span class="o">;</span>
+    	<span class="o">}</span>
+	<span class="o">}</span>
+</code></pre></div></div>
+
+<p>上面代码中，我们将 father 对象作为构造函数的一个参数传入。在调用 Human 的构造方法之前外部就已经初始化好了 Father 对象。像这种非自己主动初始化依赖，而通过外部来传入依赖的方式，我们就称为依赖注入。</p>
+
+<p>依赖注入的实现有多种途径，而在 Java 中，使用注解是最常用的。比如通过Butter Knife、Dagger依赖注入库实现，都是使用注解来实现依赖注入，但它利用 APT(Annotation Process Tool) 在编译时生成辅助类，这些类继承特定父类或实现特定接口，程序在运行时加载这些辅助类，调用相应接口完成依赖生成和注入。</p>
+
+<p>依赖注入在这里仅仅剖析下概念，有时间将会补一个例子，暂且到这吧。</p>
+
+:ET

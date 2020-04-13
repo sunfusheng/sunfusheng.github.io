@@ -1,0 +1,75 @@
+I"�<p>接下来把Rxjava在实际的项目中使用，并结合Retrofit网络库，<a href="https://github.com/sunfusheng/Tuling">源码参考个人作品【图灵机器人】</a></p>
+
+<h3 id="看一张示例demo图">看一张示例Demo图</h3>
+
+<p><img src="/assets/2016/turing_1.png" style="width: 50%;" /></p>
+
+<h3 id="demo下载地址"><a href="http://fir.im/turing">Demo下载地址</a></h3>
+
+<h3 id="仅使用retrofit请求图灵api接口获得问答信息">仅使用Retrofit请求图灵API接口，获得问答信息</h3>
+
+<pre><code class="language-Java">    private void requestApiByRetrofit(String info) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(TulingParams.TULING_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        RetrofitApi api = retrofit.create(RetrofitApi.class);
+
+        Call&lt;MessageEntity&gt; call = api.getTuringInfo(TulingParams.TULING_KEY, info);
+        call.enqueue(new Callback&lt;MessageEntity&gt;() {
+            @Override
+            public void onResponse(Call&lt;MessageEntity&gt; call, Response&lt;MessageEntity&gt; response) {
+                handleResponseMessage(response.body());
+            }
+
+            @Override
+            public void onFailure(Call&lt;MessageEntity&gt; call, Throwable t) {
+            }
+        });
+    }
+</code></pre>
+
+<p>Retrofit是Square公司提供的一个类型安全的Http Client，由于Retrofit本身是支持RxJava的，因此这两者理所当然搭配使用。</p>
+
+<h3 id="使用rxjava和retrofit请求图灵api接口获得问答信息">使用RxJava和Retrofit请求图灵API接口，获得问答信息</h3>
+
+<pre><code class="language-Java">    private void requestApiByRetrofit_RxJava(String info) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(TulingParams.TULING_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .build();
+
+        RetrofitApi api = retrofit.create(RetrofitApi.class);
+
+        api.getTuringInfoByRxJava(TulingParams.TULING_KEY, info)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber&lt;MessageEntity&gt;() {
+                    @Override
+                    public void onCompleted() {
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+
+                    @Override
+                    public void onNext(MessageEntity entity) {
+                        handleResponseMessage(entity);
+                    }
+                });
+    }
+</code></pre>
+
+<p>与上一节使用与分析不同的是这节中使用了RxJava的Scheduler调度器，通过Scheduler可以指定代码执行的线程。<br />
+下面列举了RxJava内置的几种线程：<br />
+AndroidSchedulers.mainThread() 主线程<br />
+Schedulers.immediate() 当前线程，即默认Scheduler<br />
+Schedulers.newThread() 启用新线程<br />
+Schedulers.io() IO线程，内部是一个数量无上限的线程池，可以进行文件、数据库和网络操作。<br />
+Schedulers.computation() CPU计算用的线程，内部是一个数目固定为CPU核数的线程池，适合于CPU密集型计算，不能操作文件、数据库和网络。<br />
+subscribeOn()和observeOn()可以用来控制代码的执行线程。</p>
+
+:ET

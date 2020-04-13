@@ -1,0 +1,2 @@
+I"h<p>IntentService 是比较少使用的，如果你没听过也不意外，就像 HandlerThread 很多开发者没用过或没听过，不过我也仅仅是在demo中使用。Google 为方便开发者使用，提高开发效率，封装了 IntentService 和 HandlerThread。HandlerThread 继承自 Thread，内部封装了 Looper。那 IntentService 呢？</p>
+:ET

@@ -1,0 +1,105 @@
+I"<p>俗名：垂直跑马灯<br />
+学名：垂直翻页公告</p>
+
+<h3 id="动态效果图">动态效果图：</h3>
+
+<p><img src="/assets/2016/MarqueeView_Gif.gif" style="width: 50%;" /></p>
+
+<h3 id="github开源地址"><a href="https://github.com/sfsheng0322/MarqueeView">GitHub开源地址</a></h3>
+
+<h3 id="apk下载地址"><a href="http://fir.im/MarqueeView">APK下载地址</a></h3>
+
+<h3 id="使用">使用</h3>
+
+<h4 id="gradle">Gradle:</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>compile 'com.sunfusheng:marqueeview:&lt;latest-version&gt;'
+</code></pre></div></div>
+
+<h4 id="属性">属性</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Attribute 属性</th>
+      <th style="text-align: left">Description 描述</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">mvAnimDuration</td>
+      <td style="text-align: left">一行文字动画执行时间</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">mvInterval</td>
+      <td style="text-align: left">两行文字翻页时间间隔</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">mvTextSize</td>
+      <td style="text-align: left">文字大小</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">mvTextColor</td>
+      <td style="text-align: left">文字颜色</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">mvGravity</td>
+      <td style="text-align: left">文字位置:left、center、right</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">mvSingleLine</td>
+      <td style="text-align: left">单行设置</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="xml">XML</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;com.sunfusheng.marqueeview.MarqueeView
+    android:id="@+id/marqueeView"
+    android:layout_width="match_parent"
+    android:layout_height="30dp"
+    app:mvAnimDuration="1000"
+    app:mvInterval="3000"
+    app:mvTextColor="@color/white"
+    app:mvTextSize="14sp"
+    app:mvSingleLine="true"/&gt;
+</code></pre></div></div>
+
+<h4 id="设置列表数据">设置列表数据</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MarqueeView marqueeView = (MarqueeView) findViewById(R.id.marqueeView);
+
+List&lt;String&gt; info = new ArrayList&lt;&gt;();
+info.add("1. 大家好，我是孙福生。");
+info.add("2. 欢迎大家关注我哦！");
+info.add("3. GitHub帐号：sfsheng0322");
+info.add("4. 新浪微博：孙福生微博");
+info.add("5. 个人博客：sunfusheng.com");
+info.add("6. 微信公众号：孙福生");
+marqueeView.startWithList(info);
+</code></pre></div></div>
+
+<h4 id="设置字符串数据">设置字符串数据</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>String notice = "心中有阳光，脚底有力量！心中有阳光，脚底有力量！心中有阳光，脚底有力量！";
+marqueeView.startWithText(notice);
+</code></pre></div></div>
+
+<h4 id="设置事件监听">设置事件监听</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>marqueeView.setOnItemClickListener(new MarqueeView.OnItemClickListener() {
+    @Override
+    public void onItemClick(int position, TextView textView) {
+        Toast.makeText(getApplicationContext(), String.valueOf(marqueeView1.getPosition()) + ". " + textView.getText(), Toast.LENGTH_SHORT).show();
+    }
+});
+</code></pre></div></div>
+
+<p>源码很简单，如果想看源码可以访问<a href="https://github.com/sunfusheng/MarqueeView">GitHub</a></p>
+
+<p>具体实现思路参考<a href="http://www.jianshu.com/p/c5ef2803c823">diygreen简书文章</a></p>
+
+<p>第一次尝试将开源库上传到jcenter上，具体操作参考鸿洋的<a href="http://blog.csdn.net/lmj623565791/article/details/51148825#rd">文章</a></p>
+
+:ET

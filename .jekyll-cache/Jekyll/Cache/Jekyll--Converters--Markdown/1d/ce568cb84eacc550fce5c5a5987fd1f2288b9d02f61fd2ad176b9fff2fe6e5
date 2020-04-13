@@ -1,0 +1,6 @@
+I"�<p>WebView可以使得网页轻松的内嵌到app里，还可以直接跟js相互调用。<br />
+webview有两个方法：setWebChromeClient 和 setWebClient。<br />
+setWebClient：主要处理解析，渲染网页等浏览器做的事情。<br />
+setWebChromeClient：辅助WebView处理Javascript的对话框，网站图标，网站title，加载进度等。<br />
+WebViewClient就是帮助WebView处理各种通知、请求事件的。<br /></p>
+:ET
