@@ -84,7 +84,7 @@ GitHub: [https://github.com/sunfusheng](https://github.com/sunfusheng)
 
 <br/>
 
-### 回家吃饭，Android 高级开发工程师
+### 加双筷子，Android 高级开发工程师
 
 2015/11 - 2016/12
 
