@@ -21,13 +21,15 @@ GitHub: [https://github.com/sunfusheng](https://github.com/sunfusheng)
 
 <br/>
 
-## 自我描述
+## 自我描述  
+***
 
 我是一名热爱开源的安卓开发者，喜欢把自己的代码分享给他人，方便他人使用的同时接受反馈从而完善代码，因此最初我开源了垂直翻页公告 [MarqueeView](https://github.com/sunfusheng/MarqueeView) 和打造炫酷列表的 [StickyHeaderListView](https://github.com/sunfusheng/StickyHeaderListView)，在 GitHub 上颇受好评；同样，我非常喜欢探索与尝试没有接触过的新技术，所以正在学习并将 Kotlin 语言和 Android Jetpack 架构组件应用到工作和个人项目中；当然，作为一名程序员，我也很是注重数据结构和算法的积累，在 GitHub 上建立了自己的算法题解 [Algo](https://github.com/sunfusheng/Algo) 项目。
 
 <br/>
 
 ## 专业技能  
+***
 
 ● 熟练掌握 Java，熟悉 Kotlin/Groovy/Dart 语言。  
 ● 熟悉 JVM 及并发编程。  
@@ -132,4 +134,5 @@ GitHub: [https://github.com/sunfusheng](https://github.com/sunfusheng)
 ● 业余时间喜欢看书，有长期的个人健身习惯。  
 
 
+<br/>
 
