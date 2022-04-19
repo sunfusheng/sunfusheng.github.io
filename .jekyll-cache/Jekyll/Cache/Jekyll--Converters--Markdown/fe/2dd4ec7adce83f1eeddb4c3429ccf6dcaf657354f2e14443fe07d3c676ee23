@@ -1,4 +1,4 @@
-I"E�<p>上一篇<a href="http://www.jianshu.com/p/b8197dd2934c">【线程、多线程与线程池总结】</a>中主要记录线程、多线程相关概念，侧重于线程的Future使用与线程池的操作；同样这一篇【反射、注解与依赖注入总结】依然着重于相关概念与使用。<br /><br />
+I"X�<p>上一篇<a href="http://www.jianshu.com/p/b8197dd2934c">【线程、多线程与线程池总结】</a>中主要记录线程、多线程相关概念，侧重于线程的Future使用与线程池的操作；同样这一篇【反射、注解与依赖注入总结】依然着重于相关概念与使用。<br /><br />
 现在在我们构建自己或公司的项目中，或多或少都会依赖几个流行比较屌的第三方库，比如：<a href="https://github.com/JakeWharton/butterknife">Butter Knife</a>、<a href="https://github.com/square/retrofit">Retrofit</a>、<a href="https://github.com/google/dagger">Dagger 2</a>等，如果你没用过，那你需要找时间补一下啦；有时在使用后我们会好奇他们到底是怎么做到这种简洁、高效、松耦合等诸多优点的，当然这里我不探讨它们具体怎么实现的，而关心的是它们都用到同样的技术反射和注解，并实现的依赖注入。</p>
 
 <p>如果你好奇这些库具体是怎么实现的，或者想了解他们实现的原理，这里向你推荐几篇文章：<br />
@@ -231,7 +231,7 @@
 
 <p>3、注解参数可支持的数据类型：</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>8种基本数据类型 int、float、boolean、byte、double、char、long、short  
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>8种基本数据类型 int、float、boolean、byte、double、char、long、short  
 String、Class、enum、Annotation  
 以上所有类型的数组
 </code></pre></div></div>

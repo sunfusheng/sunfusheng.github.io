@@ -1,4 +1,4 @@
-I"�<p>当Android 4.4 KitKat发布的时候，每个人都很兴奋看到新的半透明状态栏和导航栏，这确实提高了安卓系统的美感，
+I"�<p>当Android 4.4 KitKat发布的时候，每个人都很兴奋看到新的半透明状态栏和导航栏，这确实提高了安卓系统的美感，
 我也是被很多这样的应用吸引，试着实现这样沉浸式的效果，看下效果图更直观。</p>
 
 <p><img src="/assets/2015/android_systembartint_icon.png" style="width: 50%;" /></p>
@@ -7,7 +7,7 @@
 
 <h4 id="首先studio下添加依赖或者引入相应的jar文件">首先，Studio下添加依赖或者引入相应的jar文件。</h4>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
 </code></pre></div></div>
 
 <h4 id="其次在activity中加入如下代码">其次，在Activity中加入如下代码：</h4>
@@ -35,7 +35,7 @@
 
 <h4 id="最后在对应activity的根布局中加入下面的属性即完成">最后，在对应Activity的根布局中加入下面的属性即完成。</h4>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>android:fitsSystemWindows=”true” 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>android:fitsSystemWindows=”true” 
 </code></pre></div></div>
 
 :ET

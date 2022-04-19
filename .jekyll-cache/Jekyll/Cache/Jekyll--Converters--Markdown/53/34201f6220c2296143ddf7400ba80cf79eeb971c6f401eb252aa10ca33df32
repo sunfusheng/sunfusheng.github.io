@@ -1,10 +1,10 @@
-I"�<p>分享功能在实际项目开发中经常用到的，有可能是在屏幕中间弹出的 Dialog 对话框，也有可能是从屏幕下方滑上来的视图。本文是自定义从屏幕下方滑上来的分享控件，将 ShareView add 到 DecorView 上，但是在带 NavigationBar 导航条的手机上出现适配问题，下面是我碰到的问题及解决方法。</p>
+I"�<p>分享功能在实际项目开发中经常用到的，有可能是在屏幕中间弹出的 Dialog 对话框，也有可能是从屏幕下方滑上来的视图。本文是自定义从屏幕下方滑上来的分享控件，将 ShareView add 到 DecorView 上，但是在带 NavigationBar 导航条的手机上出现适配问题，下面是我碰到的问题及解决方法。</p>
 
 <p><img src="/assets/2016/ok_share_view.png" style="width: 30%;" /></p>
 
 <p>这个功能如何实现的呢？贴下主要代码（<a href="https://github.com/sunfusheng/In-depthStudy">具体参考GitHub上项目</a>）。</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public class ShareView {
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public class ShareView {
 
     private Activity mActivity;
     private View fullMaskView; // 蒙层视图
@@ -72,7 +72,7 @@
 
 <p>找到原因就是找到解决办法了，先获取手机是否有导航条，有则在显示和隐藏动画的时候多加上导航条的高度</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>private int navigationBarHeight = 0; // 导航栏高度
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>private int navigationBarHeight = 0; // 导航栏高度
 
 // 将该View添加到根布局
 private void attachView() {

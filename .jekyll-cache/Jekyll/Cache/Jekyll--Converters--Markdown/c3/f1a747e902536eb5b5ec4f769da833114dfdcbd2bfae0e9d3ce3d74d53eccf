@@ -1,4 +1,4 @@
-I"�<p>这两年热修复、组件化、插件化很火，火到中国这方面的开源项目遍地开花，例如：屠毅敏的AndroidDynamicLoader、任玉刚的dynamic-load-apk、张勇的DroidPlugin、阿里的AndFix、林光亮的Small等，除了中国这些热修复、插件化的开源项目，你有听过外国的嘛。虽然你可能看过这样的文章《插件化从入门到放弃》，但你是否还看过这样的文章《插件化从放弃到捡起》，尽管应用热修复和插件化坑多、难度高，但我们还是一往情深、纵身向前，因为她的优点远多于她的缺点。</p>
+I"�<p>这两年热修复、组件化、插件化很火，火到中国这方面的开源项目遍地开花，例如：屠毅敏的AndroidDynamicLoader、任玉刚的dynamic-load-apk、张勇的DroidPlugin、阿里的AndFix、林光亮的Small等，除了中国这些热修复、插件化的开源项目，你有听过外国的嘛。虽然你可能看过这样的文章《插件化从入门到放弃》，但你是否还看过这样的文章《插件化从放弃到捡起》，尽管应用热修复和插件化坑多、难度高，但我们还是一往情深、纵身向前，因为她的优点远多于她的缺点。</p>
 
 <h2 id="插件化在实际开发中的主要好处有">插件化在实际开发中的主要好处有：</h2>
 <p>1、团队插件化开发并可以单独编译运行。<br />
@@ -13,25 +13,25 @@
 <h2 id="重构步骤">重构步骤</h2>
 <p>Android工程的组件一般分为两种：lib组件和application组件。</p>
 
-<h4 id="拆-lib-公共库模块插件">拆 <code class="highlighter-rouge">lib.*</code> ：公共库模块插件</h4>
-<p>把各个第三方库拆出来做成一个个 <code class="highlighter-rouge">lib.*</code> 库模块插件，包括统计、地图、网络、图片、支付、分享等库。<br />
+<h4 id="拆-lib-公共库模块插件">拆 <code class="language-plaintext highlighter-rouge">lib.*</code> ：公共库模块插件</h4>
+<p>把各个第三方库拆出来做成一个个 <code class="language-plaintext highlighter-rouge">lib.*</code> 库模块插件，包括统计、地图、网络、图片、支付、分享等库。<br />
 把老项目积累的业务公共代码(utils)分离出来封装成一个 lib.utils 插件。<br />
 把基础的样式、主题分离出来封装成一个 lib.style 插件。</p>
 
-<h4 id="拆-app-业务模块插件">拆 <code class="highlighter-rouge">app.*</code> ：业务模块插件</h4>
-<p>把业务模块拆成 <code class="highlighter-rouge">app.*</code> 业务模块插件，他们可以依赖 <code class="highlighter-rouge">lib.*</code> 模块，显示调用 <code class="highlighter-rouge">lib.*</code> 中的各个API。<br />
+<h4 id="拆-app-业务模块插件">拆 <code class="language-plaintext highlighter-rouge">app.*</code> ：业务模块插件</h4>
+<p>把业务模块拆成 <code class="language-plaintext highlighter-rouge">app.*</code> 业务模块插件，他们可以依赖 <code class="language-plaintext highlighter-rouge">lib.*</code> 模块，显示调用 <code class="language-plaintext highlighter-rouge">lib.*</code> 中的各个API。<br />
 相对独立的业务模块先拆，比如“详情页”、“关于我们”，如果剩下的业务不好拆，先放一个插件里。<br />
 如果都不好拆，先把全部业务做成一个 app.main 主插件。</p>
 
 <h2 id="small的使用与注意">Small的使用与注意</h2>
 <p>Small的具体使用还请参考<a href="https://github.com/wequick/Small/tree/master/Android">GitHub 上 Small 的 Android 应用</a>。<br />
 需要注意的是模块的命名：<br />
-模块命名如：<code class="highlighter-rouge">app.*</code>，<code class="highlighter-rouge">lib.*</code>，<code class="highlighter-rouge">web.*</code><br />
-包名命名如：<code class="highlighter-rouge">宿主包名.app.*</code>，<code class="highlighter-rouge">宿主包名.lib.*</code>，<code class="highlighter-rouge">宿主包名.web.*</code><br />
+模块命名如：<code class="language-plaintext highlighter-rouge">app.*</code>，<code class="language-plaintext highlighter-rouge">lib.*</code>，<code class="language-plaintext highlighter-rouge">web.*</code><br />
+包名命名如：<code class="language-plaintext highlighter-rouge">宿主包名.app.*</code>，<code class="language-plaintext highlighter-rouge">宿主包名.lib.*</code>，<code class="language-plaintext highlighter-rouge">宿主包名.web.*</code><br />
 因为Small会根据包名对插件进行归类，特殊的域名空间如：“.app.” 会让这变得容易。<br />
 从Small的组件打包源码中(buildSrc/…/PluginType)能看到该框架是对插件进行归类的：</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public enum PluginType {
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public enum PluginType {
     Unknown (0),
     Host    (1),
     App     (2),
@@ -69,7 +69,7 @@ small：核心库，用于加载安卓组件包，包括动态加载类、动态
 
 <p>4、模块之间跳转有两种方式</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(1). Small.openUri("phone/Number?num=18600604600", mContext);  
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(1). Small.openUri("phone/Number?num=18600604600", mContext);  
 (2). Intent intent = Small.getIntentOfUri("phone/Number", mContext);  
      intent.putExtra("num", "18600604600");  
      startActivity(intent);  
@@ -78,13 +78,13 @@ small：核心库，用于加载安卓组件包，包括动态加载类、动态
 
 <p>5、获取传递的参数也是通过 Small 实现的</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Uri uri = Small.getUri(this);  
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Uri uri = Small.getUri(this);  
 String num = uri.getQueryParameter("num");  
 </code></pre></div></div>
 
 <p>6、回传数据简单些不需要 startActivityForResult(Intent intent, int requestCode)，直接返回就好</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Intent intent = new Intent();  
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Intent intent = new Intent();  
 intent.putExtra("result", "XXOO");  
 setResult(requestCode, intent);  
 建议传递 requestCode，将 requestCode 做为 resultCode 返回。  

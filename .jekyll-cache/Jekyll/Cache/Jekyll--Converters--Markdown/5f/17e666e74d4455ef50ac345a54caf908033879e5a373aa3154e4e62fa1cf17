@@ -1,4 +1,4 @@
-I"�<p>我司以前一直用的是SVN作为代码版本库管理。最近切换到Git上，相比于SVN，Git有很多优点，
+I"�<p>我司以前一直用的是SVN作为代码版本库管理。最近切换到Git上，相比于SVN，Git有很多优点，
 其中很显著的一点，就是版本的分支（branch）和合并（merge）十分方便，接下来的内容是自己实际中操作的笔记。</p>
 
 <h3 id="首先给大家看的是git常用命令速查表">首先给大家看的是Git常用命令速查表</h3>
@@ -18,7 +18,7 @@
 
 <p>我们的开发不是在master主分支上的，是在dev（develop）上，主分支上主要保存各版本稳定的代码，我们不希望把主分支弄坏，所以在dev分支上开发，每个版本的开发也可以从dev分支上打出小的功能（feature）分支，开发完每个feature分支后再合并到dev分支上。</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>查看分支  
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>查看分支  
 $ git branch  
 
 创建dev分支  
@@ -51,7 +51,7 @@ $ git push --tags
 
 <p><img src="/assets/2016/git_branch_2.jpg" style="width: 80%;" /></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#这种fixbug分支和dev分支一样，比如从dev分支创建fixbug-v0.2后并切换到fixbug-v0.2分支  
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#这种fixbug分支和dev分支一样，比如从dev分支创建fixbug-v0.2后并切换到fixbug-v0.2分支  
 $ git checkout -b fixbug-v0.2 dev  
 
 修改完这个Bug后，我们不需要保留它，可以删除这个分支  
@@ -62,13 +62,13 @@ $ git branch -d fixbug-v0.2
 1、我们并不需要克隆一份dev分支的工程代码，有些人可能不知道哦。<br />
 2、</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>如果当前在dev分支上，我们要把dev分支上的代码合并到master分支上，需要切换到master分支上并执行
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>如果当前在dev分支上，我们要把dev分支上的代码合并到master分支上，需要切换到master分支上并执行
 $ git merge --no-ff dev  相反亦然
 </code></pre></div></div>
 
 <h3 id="清除-git-或-svn-的配置文件">清除 .git 或 .svn 的配置文件</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd 到工程的根目录 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd 到工程的根目录 
 
 清除 .svn 配置文件
 $ find . -name ".svn" | xargs rm -Rf

@@ -1,4 +1,4 @@
-I"�<h3 id="该库是基于glide-v471设计的实现如下特性">该库是基于<a href="https://github.com/bumptech/glide">Glide</a> V4.7.1设计的，实现如下特性:<br /></h3>
+I"<h3 id="该库是基于glide-v471设计的实现如下特性">该库是基于<a href="https://github.com/bumptech/glide">Glide</a> V4.7.1设计的，实现如下特性:<br /></h3>
 <p>1、监听加载网络图片的进度<br />
 2、动态加载成有弧度的图片、圆形图片、高斯模糊图片更方便<br />
 3、链式设置触摸图片的透明度和非使能的透明度<br />
@@ -14,14 +14,14 @@
 
 <h4 id="gradle">Gradle:</h4>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>compile 'com.sunfusheng:GlideImageView:&lt;latest-version&gt;'
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>compile 'com.sunfusheng:GlideImageView:&lt;latest-version&gt;'
 </code></pre></div></div>
 
 <p><br /></p>
 
 <h4 id="glideimageview-主要方法">GlideImageView 主要方法</h4>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>load(String url, @DrawableRes int placeholder, int radius, OnProgressListener onProgressListener)
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>load(String url, @DrawableRes int placeholder, int radius, OnProgressListener onProgressListener)
 
 load(Object obj, @DrawableRes int placeholder, Transformation&lt;Bitmap&gt; transformation, OnProgressListener onProgressListener)
 

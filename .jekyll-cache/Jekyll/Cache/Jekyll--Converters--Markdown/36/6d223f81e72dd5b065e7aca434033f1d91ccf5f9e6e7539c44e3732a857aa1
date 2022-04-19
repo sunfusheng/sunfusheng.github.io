@@ -1,4 +1,4 @@
-I"<p>俗名：垂直跑马灯<br />
+I"w<p>俗名：垂直跑马灯<br />
 学名：垂直翻页公告</p>
 
 <h3 id="动态效果图">动态效果图：</h3>
@@ -13,7 +13,7 @@
 
 <h4 id="gradle">Gradle:</h4>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>compile 'com.sunfusheng:marqueeview:&lt;latest-version&gt;'
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>compile 'com.sunfusheng:marqueeview:&lt;latest-version&gt;'
 </code></pre></div></div>
 
 <h4 id="属性">属性</h4>
@@ -55,7 +55,7 @@
 
 <h4 id="xml">XML</h4>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;com.sunfusheng.marqueeview.MarqueeView
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;com.sunfusheng.marqueeview.MarqueeView
     android:id="@+id/marqueeView"
     android:layout_width="match_parent"
     android:layout_height="30dp"
@@ -68,7 +68,7 @@
 
 <h4 id="设置列表数据">设置列表数据</h4>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MarqueeView marqueeView = (MarqueeView) findViewById(R.id.marqueeView);
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MarqueeView marqueeView = (MarqueeView) findViewById(R.id.marqueeView);
 
 List&lt;String&gt; info = new ArrayList&lt;&gt;();
 info.add("1. 大家好，我是孙福生。");
@@ -82,13 +82,13 @@ marqueeView.startWithList(info);
 
 <h4 id="设置字符串数据">设置字符串数据</h4>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>String notice = "心中有阳光，脚底有力量！心中有阳光，脚底有力量！心中有阳光，脚底有力量！";
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>String notice = "心中有阳光，脚底有力量！心中有阳光，脚底有力量！心中有阳光，脚底有力量！";
 marqueeView.startWithText(notice);
 </code></pre></div></div>
 
 <h4 id="设置事件监听">设置事件监听</h4>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>marqueeView.setOnItemClickListener(new MarqueeView.OnItemClickListener() {
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>marqueeView.setOnItemClickListener(new MarqueeView.OnItemClickListener() {
     @Override
     public void onItemClick(int position, TextView textView) {
         Toast.makeText(getApplicationContext(), String.valueOf(marqueeView1.getPosition()) + ". " + textView.getText(), Toast.LENGTH_SHORT).show();

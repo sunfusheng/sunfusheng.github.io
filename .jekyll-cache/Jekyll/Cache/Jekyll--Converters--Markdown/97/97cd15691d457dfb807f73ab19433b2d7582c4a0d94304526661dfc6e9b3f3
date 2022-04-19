@@ -1,4 +1,4 @@
-I"L<p>贝赛尔曲线大家应该都不陌生吧，如果你还陌生，那应该看看本文示例讲解的二、三阶贝赛尔曲线。
+I"_<p>贝赛尔曲线大家应该都不陌生吧，如果你还陌生，那应该看看本文示例讲解的二、三阶贝赛尔曲线。
 本篇文章从基础开始，自定义View来使用Android系统提供的贝赛尔曲线API。<br />
 贝塞尔曲线（Bezier Curve）于1962，由法国工程师皮埃尔·贝塞尔广泛发表，他运用贝塞尔曲线来为汽车的主体进行设计。</p>
 
@@ -17,7 +17,7 @@
 
 <p>本示例中主要用了Paint和Path来绘制贝赛尔曲线，下面把它们的相关基础知识贴在下面</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Paint即画笔，可以绘制图形、可以绘制文字，有很多属性设置方法： 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Paint即画笔，可以绘制图形、可以绘制文字，有很多属性设置方法： 
 setAntiAlias: 设置画笔的锯齿效果，为true即给该图形或文字打上抗锯齿标志  
 setColor: 设置画笔颜色  
 setAlpha: 设置Alpha值   

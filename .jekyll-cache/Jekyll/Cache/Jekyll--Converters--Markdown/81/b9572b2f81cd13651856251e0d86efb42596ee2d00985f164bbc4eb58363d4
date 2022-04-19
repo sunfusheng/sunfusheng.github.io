@@ -1,4 +1,4 @@
-I"/<p>最近工作上要用到的通信技术点－Socket，
+I"*/<p>最近工作上要用到的通信技术点－Socket，
 在2012年的时候就学习过socket编程，那时主要使用Unix C实现的，
 学完以后也没有使用过，现在做Android开发使用Java语言实现与那时Unix C实现基本一样。<br />
 1、创建Socket；<br />
@@ -19,7 +19,7 @@ OkHttp, Volley, xUtil, Android-async-http等，然而应用层下的Http 协议�
 
 <p>同样，工作中我也是使用GitHub上的库，方便在于它为我们封装好几个重要的回调接口：</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>* Socket 连接
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>* Socket 连接
 * Socket 收到数据
 * Socket 关闭或被关闭
 </code></pre></div></div>
@@ -27,7 +27,7 @@ OkHttp, Volley, xUtil, Android-async-http等，然而应用层下的Http 协议�
 <p>这个库<a href="https://github.com/koush/AndroidAsync">AndroidAsync</a>在GitHub有超过5000多人star，功能很强大，
 支持有：</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>* Socket client + socket server
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>* Socket client + socket server
 * HTTP client + server
 * WebSocket client + server
 </code></pre></div></div>

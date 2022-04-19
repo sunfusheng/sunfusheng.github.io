@@ -1,4 +1,4 @@
-I"?U<p>这篇文章的目的很简单，就是要实现当我们在 GitHub 上创建应用或库的时候，Travis CI 可以帮助我们构建工程，可以把应用每次打的tag提交到 GitHub 的 releases 上，也可以把库构建完的每次版本提交到 Maven 上，还可以把应用发布到 Fir.im 上，成功或失败邮件通知我们。</p>
+I"RU<p>这篇文章的目的很简单，就是要实现当我们在 GitHub 上创建应用或库的时候，Travis CI 可以帮助我们构建工程，可以把应用每次打的tag提交到 GitHub 的 releases 上，也可以把库构建完的每次版本提交到 Maven 上，还可以把应用发布到 Fir.im 上，成功或失败邮件通知我们。</p>
 
 <p><strong>目录</strong></p>
 <ul>
@@ -31,7 +31,7 @@
 <h4 id="travis-ci-配置">Travis CI 配置</h4>
 
 <p>首先第一步你需要到 travis-ci.org 网站上用你的 GitHub 帐号注册登录，需要注意的是 Travis 分为开源项目版本与付费项目版本。</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>开源版本域名：https://travis-ci.org​
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>开源版本域名：https://travis-ci.org​
 付费版本域名：https://travis-ci.com
 </code></pre></div></div>
 <p>我们使用免费的版本就可以了，登录成功后，Travis 会同步你的 GitHub 仓库，如果你想为你的 GitHub 开源项目添加 Travis 持续集成，打开项目名字前面的开关就可以了。</p>

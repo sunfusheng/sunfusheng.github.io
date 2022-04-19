@@ -1,5 +1,4 @@
-I"�
-<p>为什么 CoordinatorLayout 支持 NestedScrollView 嵌套滑动不支持 ScrollView；<br />
+I"0<p>为什么 CoordinatorLayout 支持 NestedScrollView 嵌套滑动不支持 ScrollView；<br />
 为什么 CoordinatorLayout 支持 RecyclerView 嵌套滑动不支持 ListView；<br />
 这一篇博文我们要知道 CoordinatorLayout 为什么不支持，还要让它支持 ListView 的嵌套滑动。</p>
 
@@ -9,7 +8,7 @@
 
 <p>Android 5.0 Lollipop(棒棒糖) 发布以后，增加了这节我们关注的两个接口和两个帮助类</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NestedScrollingParent  
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NestedScrollingParent  
 NestedScrollingChild  
 NestedScrollingParentHelper  
 NestedScrollingChildHelper  
@@ -17,14 +16,14 @@ NestedScrollingChildHelper
 
 <p>CoordinatorLayout 之所以可以和 RecyclerView、NestedScrollView 联动，是因为它实现了 NestedScrollingParent 接口，看一下它的继承关系</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public class CoordinatorLayout extends ViewGroup implements NestedScrollingParent {
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public class CoordinatorLayout extends ViewGroup implements NestedScrollingParent {
     ...
 }
 </code></pre></div></div>
 
 <p>如果子类可以实现 NestedScrollingChild，这样通过 NestedScrollingChildHelper 可以通知父类接收滑动事件继而实现联动，我们再看一下 RecyclerView 和 NestedScrollView 的继承关系</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public class RecyclerView extends ViewGroup implements ScrollingView, NestedScrollingChild {
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public class RecyclerView extends ViewGroup implements ScrollingView, NestedScrollingChild {
     ...
 }
 
@@ -35,7 +34,7 @@ public class NestedScrollView extends FrameLayout implements NestedScrollingPare
 
 <p>看到这我们就知道了，为什么 CoordinatorLayout 不支持和 ListView、ScrollView 嵌套联动，因为这俩小子没开这个卦呀</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public class ListView extends AbsListView {
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public class ListView extends AbsListView {
     ...
 }
 

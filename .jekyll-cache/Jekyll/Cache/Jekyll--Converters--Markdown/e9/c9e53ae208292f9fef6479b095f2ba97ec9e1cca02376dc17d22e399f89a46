@@ -1,4 +1,4 @@
-I"�<p><a href="https://github.com/sunfusheng/StickyHeaderListView">StickyHeaderListView</a> 是基于实际需求做出的灵活可定制的UI功能，具体实现功能如下：<br />
+I"�<p><a href="https://github.com/sunfusheng/StickyHeaderListView">StickyHeaderListView</a> 是基于实际需求做出的灵活可定制的UI功能，具体实现功能如下：<br />
 一、支持无限循环的广告位。<br />
 二、高度可动态配置的Header2和Header3（使用GridView实现）。<br />
 三、主要功能：分类、排序和筛选布局滑动到顶部后吸附、悬停。<br />
@@ -31,7 +31,7 @@
 
 <p>Header 3: 和Header 2一样的实现方式，要注意的地方就是分割线的设置，我实现的思路是设置GridView的背景颜色的分割线的颜色，再设置如下的四个属性：paddingTop、paddingBottom、horizontalSpacing、verticalSpacing为1px，这样分割线就均等了。</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>android:background="@color/font_black_5"
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>android:background="@color/font_black_5"
 android:paddingTop="1px"
 android:paddingBottom="1px"
 android:horizontalSpacing="1px"

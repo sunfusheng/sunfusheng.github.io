@@ -1,4 +1,4 @@
-I"�<p>WebView可以使得网页轻松的内嵌到app里，还可以直接跟js相互调用。<br />
+I"E<p>WebView可以使得网页轻松的内嵌到app里，还可以直接跟js相互调用。<br />
 webview有两个方法：setWebChromeClient 和 setWebClient。<br />
 setWebClient：主要处理解析，渲染网页等浏览器做的事情。<br />
 setWebChromeClient：辅助WebView处理Javascript的对话框，网站图标，网站title，加载进度等。<br />
@@ -8,19 +8,19 @@ WebViewClient就是帮助WebView处理各种通知、请求事件的。<br /></p
 
 <p>加载本地资源</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>webView = (WebView) findViewById(R.id.webView);
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>webView = (WebView) findViewById(R.id.webView);
 webView.loadUrl("file:///android_asset/example.html");
 </code></pre></div></div>
 
 <p>加载网络资源</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>webView = (WebView) findViewById(R.id.webView);
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>webView = (WebView) findViewById(R.id.webView);
 webView.loadUrl("http://baidu.com");
 </code></pre></div></div>
 
 <p>上面加载网络资源会加载不出来，实际使用如下：</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>webView.loadUrl("http://baidu.com");
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>webView.loadUrl("http://baidu.com");
 webView.setWebViewClient(new WebViewClient(){
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -33,7 +33,7 @@ webView.setWebViewClient(new WebViewClient(){
 
 <h3 id="websettings的常用方法介绍">WebSettings的常用方法介绍</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>setJavaScriptEnabled(true);  //支持js
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>setJavaScriptEnabled(true);  //支持js
 setPluginsEnabled(true);  //支持插件 
 
 setLoadsImagesAutomatically(true);  //支持自动加载图片
@@ -56,7 +56,7 @@ if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.HONEYCOMB) {
 
 <h3 id="webviewclient的方法介绍">WebViewClient的方法介绍</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>onLoadResource(WebView view, String url) // 在加载页面资源时会调用，每一个资源（比如图片）的加载都会调用一次。 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>onLoadResource(WebView view, String url) // 在加载页面资源时会调用，每一个资源（比如图片）的加载都会调用一次。 
 
 onPageStarted(WebView view, String url, Bitmap favicon) //这个事件就是开始载入页面调用的，通常我们可以在这设定一个loading的页面，告诉用户程序在等待网络响应。 
 
@@ -74,7 +74,7 @@ shouldOverrideUrlLoading(WebView view, String url)
 
 <h3 id="按返回键时不退出程序而是返回上一浏览页面">按返回键时，不退出程序而是返回上一浏览页面</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@Override
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@Override
 public boolean onKeyDown(int keyCode, KeyEvent event) {
     if (keyCode == KeyEvent.KEYCODE_BACK &amp;&amp; webView.canGoBack()) {
         webView.goBack();//返回上一页面
@@ -88,11 +88,11 @@ public boolean onKeyDown(int keyCode, KeyEvent event) {
 
 <p>优先使用缓存:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>webView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>webView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
 </code></pre></div></div>
 
 <p>不使用缓存:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
 </code></pre></div></div>
 :ET
