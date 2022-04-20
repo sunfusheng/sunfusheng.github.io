@@ -24,14 +24,14 @@ GitHub: [https://github.com/sunfusheng](https://github.com/sunfusheng)
 ## 自我描述  
 ***
 
-我是一名热爱开源的安卓开发者，喜欢把自己的代码分享给他人，方便他人使用的同时接受反馈从而完善代码，因此最初我开源了垂直翻页公告 [MarqueeView](https://github.com/sunfusheng/MarqueeView) 和打造炫酷列表的 [StickyHeaderListView](https://github.com/sunfusheng/StickyHeaderListView)，在 GitHub 上颇受好评；同样，我非常喜欢探索与尝试没有接触过的新技术，所以正在学习并将 Kotlin 语言和 Android Jetpack 架构组件应用到工作和个人项目中；当然，作为一名程序员，我也很是注重数据结构和算法的积累，在 GitHub 上建立了自己的算法题解 [Algo](https://github.com/sunfusheng/Algo) 项目。
+我是一名热爱开源的安卓开发者，喜欢把自己的代码分享给他人，方便他人的同时接受反馈从而完善代码，因此最初我开源了垂直翻页公告 [MarqueeView](https://github.com/sunfusheng/MarqueeView) 和打造炫酷列表的 [StickyHeaderListView](https://github.com/sunfusheng/StickyHeaderListView)，在 GitHub 上颇受好评；同样，我非常喜欢探索与尝试新技术，将 Kotlin 语言、协程、Jetpack 架构组件、MVVM应用到工作和个人项目中；当然，作为一名程序员，我也很是注重数据结构和算法的积累，在 GitHub 上建立了自己的算法题解 [Algo](https://github.com/sunfusheng/Algo) 项目。
 
 <br/>
 
 ## 专业技能  
 ***
 
-● 熟练掌握 Java，熟悉 Kotlin/Groovy/Dart 语言。  
+● 熟练掌握 Java、Kotlin 语言。  
 ● 熟悉 JVM 及并发编程。  
 ● 熟悉 Android Framework 核心知识体系，有较为丰富的 Android 源码阅读经验。  
 ● 熟悉常用的设计模式、重构技巧，注重代码质量，有较为丰富的项目重构与设计经验。  
@@ -97,7 +97,7 @@ GitHub: [https://github.com/sunfusheng](https://github.com/sunfusheng)
 
 2016/12 - 2018/09
 
-#### 项目名称：【蓝信】  
+#### 项目1名称：【蓝信】  
 【蓝信】是一款操作起来很简单，功能也很全面的企业级通讯工具。主要功能有单聊、群聊、电话会议、企业通讯录管理、企业服务管理等。
 
 责任描述：   
@@ -105,37 +105,33 @@ GitHub: [https://github.com/sunfusheng](https://github.com/sunfusheng)
 2、通过 ContentProvider 实现服务在模块间和进程间共享，降低了第三方包的重复引用。  
 3、使用多种手段降低 APK 包体积大小，优化后降低 10% 左右。  
 
-#### 项目名称：【北京时间】【360新闻】  
+#### 项目2名称：【北京时间】【360新闻】  
 【北京时间】是北京广播电视台官方APP，和【360新闻】一样都是360新闻团队打造的一款热门的新闻资讯客户端。
 
 责任描述：  
 1、以较高质量和指标独立封装一套埋点存储与上传工具，降低内存开销，避免影响主线程卡顿。  
 2、优化新闻主页 RecyclerView 显示多种数据类型使用繁琐并且不同页面无法复用的问题，封装一套多种数据类型可全局复用，可局部覆盖，通过数据驱动显示多种数据类型的 [MultiType](https://github.com/sunfusheng/MultiType)，大大提高了业务开发速度。  
-3、以 LeakCanary 为主其它手段为辅，解决 APP 大部分内存泄漏问题。  
+3、以 LeakCanary 为主其它手段为辅，解决 APP 大部分内存泄漏问题。   
 
 <br/>
 
-### 加双筷子，Android 高级开发工程师
+#### 回家吃饭，高级Android工程师
 
 2015/11 - 2016/12
+ 
+【回家吃饭】是一个基于地理位置、共享身边美食的全国最大的家庭厨房共享平台，致力于挖掘厨艺达人，以配送、上门就餐、自取多种方式为忙碌的上班族、不愿下厨的年轻人提供安心可口的家常菜，致力于解决对健康美食有需求与富余生产力衔接的问题，创造一种全新的生活方式。
 
-参与并重构【回家吃饭】项目，主要完成如下工作：  
-1、项目从 Eclipse 环境上切换到 Studio 上开发，项目托管从 SVN 迁移到 Git 上实行多分支版本管理。   
-2、网络库从 xUtils 更换为 OkHttp + Retofit，封装一套简单易用的框架。  
-3、首页全新改版，具体参考个人开源项目【打造炫酷列表的[StickyHeaderListView](https://github.com/sunfusheng/StickyHeaderListView)】。  
-4、使用 MVP 架构模式重构首页美食列表，厨房详情页等。  
-5、自定义 ShoppingView 购物车组件，加入动画效果。  
+工作期间主要负责C端APP功能开发与维护，重构了首页、厨房详情页、购物车等功能。
 
 <br/>
 
-### 创新工场，Android 开发工程师
+#### 创新工场，Android工程师
 
-2014/10 - 2015/11
+2013/06 - 2015/11
 
-从头开始参与【美丽屋】项目的开发与后期版本的迭代。  
-1、负责应用的登录注册页面，处理相关的网络请求。  
-2、负责贷款计算器和税费计算器模块功能。  
-3、负责地图搜索二手房和待出租房模块功能，优化地图元素的显示。  
+[【美丽屋】](http://bj.meiliwu.com/)是一款可以根据城市或者地图搜索二手房、待出租房，浏览房屋相关信息，具有IM聊天功能可以与卖房者、租房者沟通，同时该应用还拥有贷款计算器和税费计算器功能。
+
+在此期间主要完成该应用的注册、登录和引导页等基本功能，实现租房详情页，使用百度地图实现地图查找房源功能，实现税费计算器和贷款计算器功能等。
 
 <br/>
 
@@ -157,4 +153,9 @@ GitHub: [https://github.com/sunfusheng](https://github.com/sunfusheng)
 
 
 <br/>
+
+感谢您花时间阅读我的简历，期待能有机会和您共事。
+
+<br/>
+
 
