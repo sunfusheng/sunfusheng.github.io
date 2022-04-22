@@ -3,7 +3,6 @@ title: 个人简历
 layout: page
 ---
 
-<br/>
 
 ## 八年 Android 开发经验  
 ***
@@ -19,7 +18,6 @@ layout: page
 GitHub: [https://github.com/sunfusheng](https://github.com/sunfusheng)   
 网页简历: [http://sunfusheng.com/resume](http://sunfusheng.com/resume)
 
-<br/>
 
 ## 专业技能  
 ***
@@ -38,7 +36,6 @@ GitHub: [https://github.com/sunfusheng](https://github.com/sunfusheng)
 ● 熟悉 Flutter 项目开发，能够开发普通的应用界面。   
 ● 具备极强的自控力、执行力及学习能力，并同时兼备良好的沟通协作能力，注重个人及团队的产出效率。  
 
-<br/>
 
 ## 工作经历
 ***  
@@ -64,7 +61,6 @@ GitHub: [https://github.com/sunfusheng](https://github.com/sunfusheng)
 3、接入日志回捞能力，定位线上问题。  
 4、调试面板开发，测试环境方便RD和QA查看过滤日志、广播消息等，支持切换测试环境。  
 
-<br/>
 
 ### 滴滴，Android 资深开发工程师（职级D7）
 
@@ -78,7 +74,6 @@ GitHub: [https://github.com/sunfusheng](https://github.com/sunfusheng)
 2、通过构建场景化的方式优化成单前后的业务逻辑，降低了业务之间的耦合。  
 3、解决线上崩溃和卡顿问题，降低千分之二左右的崩溃率。  
 
-<br/>
 
 ### 360，Android 高级开发工程师
 
@@ -100,7 +95,6 @@ GitHub: [https://github.com/sunfusheng](https://github.com/sunfusheng)
 1、APP首页开发与维护，封装 RecyclerView 实现数据驱动以显示多种数据类型，简化沉淀为开源项目 [MultiType](https://github.com/sunfusheng/MultiType)。  
 2、视频播放器功能开发与维护。  
 
-<br/>
 
 ### 回家吃饭，Android 高级开发工程师
 
@@ -108,7 +102,6 @@ GitHub: [https://github.com/sunfusheng](https://github.com/sunfusheng)
  
 回家吃饭是一款基于地理位置的家庭厨房共享平台，以配送、自取、上门就餐多种方式为忙碌的上班族或不愿下厨的年轻人等提供安心可口的家常菜，致力于解决对健康美食有需求与富余生产力衔接的问题，创造一种全新的生活方式。工作期间我主要负责C端APP的功能开发与维护，重构了首页、厨房详情页、购物车等功能。
 
-<br/>
 
 ### 创新工场，Android 工程师
 
@@ -116,7 +109,6 @@ GitHub: [https://github.com/sunfusheng](https://github.com/sunfusheng)
 
 [美丽屋](http://bj.meiliwu.com/)是一款租房、买房、浏览房产信息的APP，具有 IM 聊天功能。工作期间我主要负责应用的登录注册、引导页、租房详情页、税费计算器和贷款计算器的开发，并集成百度SDK实现地图查找房源功能。
 
-<br/>
 
 ## 教育经历
 ***  
@@ -126,7 +118,6 @@ GitHub: [https://github.com/sunfusheng](https://github.com/sunfusheng)
 ● 全国大学生电子设计大赛优秀奖   
 ● 校智能车大赛二等奖     
 
-<br/>
 
 ## 兴趣爱好  
 ***  
@@ -134,11 +125,6 @@ GitHub: [https://github.com/sunfusheng](https://github.com/sunfusheng)
 ● 喜欢探索尝试新技术，热爱开源。  
 ● 业余时间喜欢看书，有长期的个人健身习惯。  
 
-
 <br/>
 
 > 感谢您花时间阅读我的简历，期待能有机会和您共事。
-
-<br/>
-
-
