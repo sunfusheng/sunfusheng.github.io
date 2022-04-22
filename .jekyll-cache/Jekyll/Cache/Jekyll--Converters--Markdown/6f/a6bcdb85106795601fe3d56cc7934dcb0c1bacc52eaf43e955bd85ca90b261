@@ -1,4 +1,4 @@
-I"�<p><br /></p>
+I"�<p><br /></p>
 
 <h2 id="八年-android-开发经验">八年 Android 开发经验</h2>
 <hr />
@@ -69,7 +69,7 @@ GitHub: <a href="https://github.com/sunfusheng">https://github.com/sunfusheng</a
 <p>滴滴出行国际版是一款拥有专车、快车、出租车、顺风车、外卖业务的国际版出行APP，应用于巴西，智利、墨西哥、日本、澳大利亚等国家。</p>
 
 <p>责任描述：<br />
-1、使用 Kotlin 和 Jetpack 架构组件重构上车点选择模块。<br />
+1、使用 Kotlin + Jetpack 架构组件重构上车点选择模块。<br />
 2、通过构建场景化的方式优化成单前后的业务逻辑，降低了业务之间的耦合。<br />
 3、解决线上崩溃和卡顿问题，降低千分之二左右的崩溃率。</p>
 
@@ -89,15 +89,15 @@ GitHub: <a href="https://github.com/sunfusheng">https://github.com/sunfusheng</a
 4、引入 <a href="https://github.com/square/leakcanary">LeakCanary</a> 解决APP内存泄漏问题。</p>
 
 <h4 id="项目2北京时间360新闻">项目2：北京时间、360新闻</h4>
-<p>北京时间是北京广播电视台官方APP，和360新闻一样都是360新闻团队打造的一款新闻资讯客户端。</p>
+<p>北京时间是北京广播电视台官方APP，和360新闻一样都是360团队打造的新闻资讯类客户端。</p>
 
 <p>责任描述： <br />
-1、APP首页开发与维护，封装 RecyclerView 实现数据驱动以显示多种数据类型，简化沉淀为开源项目<a href="https://github.com/sunfusheng/MultiType">MultiType</a>。<br />
+1、APP首页开发与维护，封装 RecyclerView 实现数据驱动以显示多种数据类型，简化沉淀为开源项目 <a href="https://github.com/sunfusheng/MultiType">MultiType</a>。<br />
 2、视频播放器功能开发与维护。</p>
 
 <p><br /></p>
 
-<h4 id="回家吃饭android-高级开发工程师">回家吃饭，Android 高级开发工程师</h4>
+<h3 id="回家吃饭android-高级开发工程师">回家吃饭，Android 高级开发工程师</h3>
 
 <p>2015/11 - 2016/12</p>
 
@@ -105,7 +105,7 @@ GitHub: <a href="https://github.com/sunfusheng">https://github.com/sunfusheng</a
 
 <p><br /></p>
 
-<h4 id="创新工场android-工程师">创新工场，Android 工程师</h4>
+<h3 id="创新工场android-工程师">创新工场，Android 工程师</h3>
 
 <p>2013/06 - 2015/11</p>
 
