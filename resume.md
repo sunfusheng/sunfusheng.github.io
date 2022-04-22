@@ -16,7 +16,7 @@ layout: page
 手机号码: 185-1108-0322  
 电子邮件: sfsheng0322@126.com  
 GitHub: [https://github.com/sunfusheng](https://github.com/sunfusheng)   
-网页简历: [http://sunfusheng.com/resume](http://sunfusheng.com/resume)
+在线简历: [http://sunfusheng.com/resume](http://sunfusheng.com/resume)
 
 
 ## 专业技能  
