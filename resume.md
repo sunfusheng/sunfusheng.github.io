@@ -105,7 +105,7 @@ GitHub: [https://github.com/sunfusheng](https://github.com/sunfusheng)
 
 ### 创新工场，Android 工程师
 
-2013/06 - 2015/11
+2014/10 - 2015/11
 
 [美丽屋](http://bj.meiliwu.com/)是一款租房、买房、浏览房产信息的APP，具有 IM 聊天功能。工作期间我主要负责应用的登录注册、引导页、租房详情页、税费计算器和贷款计算器的开发，并集成百度SDK实现地图查找房源功能。
 
